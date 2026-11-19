@@ -1,0 +1,2601 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<title>Operação Almanak · Teste de Aptidão Operacional & Protocolo Oficial</title>
+<meta name="description" content="Auditoria de aptidão para a Operação Almanak: verifique se sua rotina e seu celular estão qualificados para operar a brecha de arbitragem invisível do TikTok e faturar de R$ 55 a R$ 1.000/dia no Pix sem aparecer e sem gastar com anúncios.">
+<meta name="theme-color" content="#f8fafc">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================================
+   1. PALETA HARMÔNICA 40% - 40% - 20% (TEMA CLARO MINIMALISTA & SOFISTICADO)
+   40% Canvas / Superfície: #f8fafc / #ffffff
+   40% Estrutura / Tipografia / Tinta: #0f172a
+   20% Destaque de Conversão / Ação: #059669 (Verde Pix) + #facc15 (Urgência)
+   ========================================================================= */
+:root {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --panel2: #f1f5f9;
+  --line: #e2e8f0;
+  --line-glow: #cbd5e1;
+
+  --fg: #0f172a;
+  --muted: #475569;
+  --dim: #64748b;
+  --dark-panel: #0f172a;
+  --dark-card: #141b24;
+
+  --g: #059669; /* Verde Pix / Lucro */
+  --g-glow: rgba(5, 150, 105, 0.35);
+  --y: #facc15; /* Âmbar Urgência */
+  --r: #dc2626; /* Alerta */
+
+  --f: "Montserrat", system-ui, -apple-system, sans-serif;
+  --fb: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --fm: "JetBrains Mono", monospace;
+
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-pill: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 500 16px/1.55 var(--fb);
+  overflow-x: clip;
+  min-height: 100vh;
+  position: relative;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; border: none; background: none; }
+::selection { background: rgba(5, 150, 105, 0.25); color: #0f172a; }
+:focus-visible { outline: 2px solid var(--g); outline-offset: 3px; }
+
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.vig {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(5, 150, 105, 0.05), transparent 65%),
+    radial-gradient(900px 600px at 100% 100%, rgba(250, 204, 21, 0.04), transparent 60%);
+}
+
+.col { width: min(740px, 100% - 32px); margin-inline: auto; }
+.wide { width: min(1080px, 100% - 32px); margin-inline: auto; }
+
+/* BARRA DE PROGRESSO GLOBAL NO TOPO (VISÍVEL NO QUIZ, CASCATA E TSL; SOME NO PITCH) */
+#top-progress {
+  position: fixed; top: 0; left: 0; height: 4px; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%; will-change: transform;
+  background: linear-gradient(90deg, #0284c7, var(--g));
+  z-index: 100; box-shadow: 0 0 10px rgba(5, 150, 105, 0.4);
+  display: none; transition: transform .3s ease-out;
+}
+#top-progress.active { display: block; }
+
+/* CABEÇALHO EM AMARELO (APARECE APENAS NA PÁGINA DE VENDAS) */
+#sales-top-banner {
+  position: sticky; top: 0; z-index: 90;
+  display: none; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 14px; background: #fbbf24; color: #0f172a;
+  font: 800 12px/1 var(--f); letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+#sales-top-banner.active { display: flex; }
+#sales-top-banner .off { background: #0f172a; color: #fbbf24; border-radius: 4px; padding: 4px 8px; font-weight: 900; }
+#sales-top-banner .tm { color: #78350f; font-weight: 700; }
+#sales-top-banner .tm b { color: #0f172a; font-variant-numeric: tabular-nums; font-weight: 900; }
+#sales-top-banner .live {
+  width: 8px; height: 8px; border-radius: 50%; background: #dc2626;
+  box-shadow: 0 0 0 0 rgba(220, 38, 38, .7); animation: ping 1.4s infinite;
+}
+@keyframes ping {
+  70% { box-shadow: 0 0 0 9px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+/* NOTIFICAÇÃO DE VENDAS POP-DOWN (DYNAMIC ISLAND COM CACTO GLOW) */
+.vnd {
+  position: fixed; left: 50%; top: max(10px, env(safe-area-inset-top));
+  width: min(92vw, 410px); z-index: 95; pointer-events: none;
+  transform: translate(-50%, -150%) scale(.96); opacity: 0;
+  transition: transform .55s cubic-bezier(.2, 1.2, .3, 1), opacity .35s;
+}
+.vnd.on { transform: translate(-50%, 0) scale(1); opacity: 1; pointer-events: auto; }
+.vnd-card {
+  display: flex; align-items: center; gap: 14px; padding: 10px 16px;
+  border-radius: 20px; background: #141418;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+.vnd-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: #000000; color: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.12);
+}
+.vnd-icon svg { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)); }
+.vnd-info { text-align: left; flex: 1; min-width: 0; }
+.vnd-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.vnd-name { font-weight: 800; font-size: 13.5px; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vnd-badge { font-size: 11.5px; font-weight: 700; color: #94a3b8; flex-shrink: 0; }
+.vnd-body { font-size: 13px; color: #cbd5e1; margin-top: 2px; }
+.vnd-body b { color: #ffffff; font-weight: 800; }
+.vnd-body b.green { color: #34d399; }
+
+/* CONTROLE DE ÁUDIO DISCRETO */
+.mus {
+  position: fixed; right: 14px; bottom: 14px; z-index: 80;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: #ffffff; border: 1px solid var(--line); color: var(--fg);
+  display: grid; place-items: center; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); transition: transform .2s, border-color .2s;
+}
+.mus:hover { transform: scale(1.08); border-color: var(--g); }
+.mus svg { width: 18px; height: 18px; }
+.mus .off { display: none; }
+.mus.muted .on { display: none; }
+.mus.muted .off { display: block; }
+
+/* BOTÕES CTA */
+.btn-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: min(100%, 480px); margin: 0 auto;
+  padding: 18px 28px; border-radius: var(--r-md);
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  font: 900 clamp(14px, 2.7vw, 16.5px)/1 var(--f); letter-spacing: .02em;
+  text-transform: uppercase; text-decoration: none; cursor: pointer;
+  box-shadow: 0 4px 18px rgba(5, 150, 105, 0.35);
+  transition: transform .2s, box-shadow .2s;
+  position: relative; overflow: hidden;
+}
+.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45); }
+.btn-cta:active { transform: translateY(0); }
+.btn-cta::after {
+  content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: rotate(25deg); animation: btn-shine 3.8s infinite linear;
+}
+@keyframes btn-shine {
+  0% { left: -60%; }
+  35% { left: 140%; }
+  100% { left: 140%; }
+}
+.btn-pill { border-radius: var(--r-pill); }
+
+/* =========================================================================
+   2. FASE 1: TELA HERO (TESTE DE APTIDÃO OPERACIONAL)
+   - Zero travessões ("—")
+   - Subheadline menor, mais direta e impactante
+   - Disclaimer com bordas menos arredondadas (border-radius: 8px)
+   - Notificações acumuladas em cascata substituindo o card antigo
+   ========================================================================= */
+.screen-panel { display: none; width: 100%; }
+.screen-panel.active { display: block; }
+
+.hero { padding: 40px 0 20px; text-align: center; }
+
+.hero-badge-box {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 16px;
+  padding: 7px 14px; border-radius: 8px; background: #ffffff;
+  border: 1.5px solid var(--line); color: var(--fg);
+  font: 800 11px/1 var(--f); letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.hero h1 {
+  font: 900 clamp(23px, 5vw, 36px)/1.2 var(--f); letter-spacing: -.02em; text-transform: uppercase; color: var(--fg);
+  max-width: 720px; margin: 0 auto;
+}
+.hero h1 span.g { color: var(--g); }
+
+.hero .sub {
+  margin: 14px auto 26px; max-width: 36em; color: var(--muted); font-size: 15.5px; line-height: 1.55;
+}
+
+/* CASCATINHA DE NOTIFICAÇÕES DE VENDAS ACUMULADAS NA PRIMEIRA TELA */
+.hero-sales-stack {
+  max-width: 440px; margin: 0 auto 30px; display: flex; flex-direction: column; gap: 10px;
+}
+.h-stack-card {
+  display: flex; align-items: center; gap: 14px; padding: 11px 16px;
+  border-radius: 16px; background: #141418;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  text-align: left; transition: transform .25s ease;
+}
+.h-stack-card:hover { transform: translateY(-2px); }
+.h-stack-card.c1 { transform: scale(1); z-index: 3; }
+.h-stack-card.c2 { transform: scale(.98); z-index: 2; opacity: .95; }
+.h-stack-card.c3 { transform: scale(.96); z-index: 1; opacity: .9; }
+
+.hero-privacy-note {
+  margin-top: 14px; font-size: 12.5px; color: var(--dim); display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* =========================================================================
+   3. FASE 2: QUIZ (PERGUNTAS INTEGRADAS NO BACKGROUND)
+   - Sem frases/pílulas embaixo do disclaimer de etapa
+   - Pergunta 1 com verbatims reais dos clientes
+   ========================================================================= */
+.quiz-integrated-wrap {
+  max-width: 620px; margin: 0 auto; padding: 24px 0 60px; text-align: left;
+}
+
+.q-meta-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+}
+.q-step-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 8px;
+  font: 800 11px/1 var(--f); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--fg); background: #ffffff; border: 1.5px solid var(--line);
+}
+.q-pct-pill {
+  font: 700 12px var(--fm); color: var(--dim);
+}
+
+.q-title {
+  font: 800 clamp(20px, 4.4vw, 25px)/1.3 var(--f); color: var(--fg);
+  margin: 10px 0 6px; letter-spacing: -.02em;
+}
+.q-subtitle {
+  font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 22px;
+}
+
+/* Cards de Escolha Única (Sem Bolinha de Checklist na Direita) */
+.q-choice-btn {
+  width: 100%; display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: center;
+  padding: 16px 18px; border: 1.5px solid var(--line); border-radius: var(--r-md);
+  background: #ffffff; color: var(--fg); cursor: pointer; text-align: left;
+  transition: all .2s cubic-bezier(.2, .8, .2, 1); margin-bottom: 11px;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+}
+.q-choice-btn:hover {
+  border-color: #cbd5e1; background: #ffffff; transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.07);
+}
+.q-choice-btn.selected {
+  border-color: var(--g); background: #f0fdf4; box-shadow: 0 0 0 1.5px var(--g);
+}
+
+.opt-badge {
+  width: 36px; height: 36px; border-radius: 8px; background: #f1f5f9;
+  border: 1px solid var(--line); color: #334155; font: 800 13px var(--f);
+  display: grid; place-items: center; flex-shrink: 0; transition: all .2s;
+}
+.q-choice-btn.selected .opt-badge { background: var(--g); color: #ffffff; border-color: var(--g); }
+.opt-txt { font-size: 14.5px; line-height: 1.5; color: var(--fg); }
+.opt-txt b { font-weight: 700; color: var(--fg); }
+
+/* Checklist de Frustrações (Pergunta 2) */
+.q-chk-btn {
+  width: 100%; display: grid; grid-template-columns: 28px 1fr; gap: 14px; align-items: center;
+  padding: 14px 18px; border: 1.5px solid var(--line); border-radius: var(--r-md);
+  background: #ffffff; color: var(--fg); cursor: pointer; text-align: left;
+  transition: all .2s; margin-bottom: 10px; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);
+}
+.q-chk-btn:hover { border-color: #cbd5e1; transform: translateY(-1px); }
+.q-chk-btn.selected { border-color: var(--g); background: #f0fdf4; }
+
+.q-chk-box {
+  width: 24px; height: 24px; border-radius: 7px; border: 1.5px solid var(--line);
+  background: #f8fafc; display: grid; place-items: center; color: transparent;
+  font-weight: 900; font-size: 13px; transition: all .2s;
+}
+.q-chk-btn.selected .q-chk-box {
+  background: var(--g); border-color: var(--g); color: #ffffff;
+}
+
+.frust-counter-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px; border-radius: 8px;
+  font: 700 12.5px var(--f); color: #b45309; background: #fffbeb;
+  border: 1px solid #fde68a; margin: 6px 0 16px;
+}
+
+/* =========================================================================
+   4. FASE 3: CARREGAMENTO EM CASCATA COM CARDS SEQUENCIAIS
+   ========================================================================= */
+.cascade-stage { max-width: 580px; margin: 40px auto; text-align: left; }
+.cascade-cards-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.c-card {
+  padding: 18px 20px; border-radius: var(--r-md); background: #ffffff;
+  border: 1px solid var(--line); opacity: 0.35; transform: translateY(10px);
+  transition: all .4s cubic-bezier(.2, .8, .2, 1); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.c-card.in { opacity: 1; transform: translateY(0); }
+.c-card.done { border-color: #a7f3d0; background: #f0fdf4; }
+.c-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.c-title { font: 800 14px var(--f); color: var(--fg); }
+.c-tag { font: 800 10.5px var(--fm); padding: 3px 8px; border-radius: 4px; background: #f1f5f9; color: var(--dim); }
+.c-card.done .c-tag { background: #dcfce7; color: #15803d; }
+.c-desc { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.c-bar-wrap { height: 6px; border-radius: 3px; background: #e2e8f0; margin-top: 10px; overflow: hidden; }
+.c-bar-fill { height: 100%; width: 0; background: linear-gradient(90deg, #0284c7, var(--g)); transition: width .6s ease-out; }
+
+.c-final-badge {
+  display: none; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 18px; border-radius: 8px; background: #ecfdf5;
+  border: 1px solid #10b981; color: #047857; font: 800 14px var(--f);
+  text-align: center; margin-top: 20px;
+}
+.c-final-badge.in { display: flex; animation: popIn .4s ease-out; }
+@keyframes popIn {
+  0% { transform: scale(.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================================================
+   5. FASE 4: MINI-TSL INTEGRADA AO BACKGROUND (SEM CARDS BOXED)
+   - Máximo 3 linhas por parágrafo + espaçamento para respirar
+   ========================================================================= */
+.tsl-wrap { max-width: 680px; margin: 0 auto; padding: 40px 0 80px; text-align: left; }
+.tsl-status-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 8px;
+  background: #ecfdf5; border: 1.5px solid #059669; color: #047857;
+  font: 800 12px/1 var(--f); letter-spacing: .08em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.tsl-heading {
+  font: 900 clamp(24px, 4.8vw, 32px)/1.2 var(--f); color: var(--fg);
+  text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 24px;
+}
+
+/* Parágrafos da TSL: Máximo 3 linhas com respiro visual */
+.tsl-p {
+  font-size: 16px; line-height: 1.6; color: var(--muted); margin-bottom: 22px; max-width: 680px;
+}
+.tsl-p b { color: var(--fg); font-weight: 700; }
+
+.tsl-subheading {
+  font: 800 20px var(--f); color: var(--fg); text-transform: uppercase;
+  margin: 32px 0 14px; letter-spacing: -.01em; border-left: 3px solid var(--g); padding-left: 10px;
+}
+
+.tsl-gear-list { display: grid; gap: 14px; margin: 18px 0 28px; }
+.tsl-gear-item {
+  display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: flex-start;
+  padding: 14px 16px; border-radius: 10px; background: #ffffff; border: 1px solid var(--line);
+}
+.tsl-gear-num {
+  width: 44px; height: 44px; border-radius: 8px; background: #f0fdf4;
+  border: 1px solid #bbf7d0; color: var(--g); font: 900 16px var(--fm);
+  display: grid; place-items: center;
+}
+.tsl-gear-info b { font: 800 15px var(--f); color: var(--fg); display: block; margin-bottom: 4px; }
+.tsl-gear-info p { font-size: 14px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+/* =========================================================================
+   6. FASE 5: PÁGINA DE VENDAS MODELADA DO CONCORRENTE (FÁBRICA DE LOW TICKET)
+   - Todas as seções, elementos e animações reproduzidos na íntegra
+   - Adaptado para a nossa copy da Operação Almanak e tema claro
+   ========================================================================= */
+.sales-hero { padding: 40px 0 0; position: relative; overflow: hidden; text-align: center; }
+
+/* Grade 3D Animada no Chão (.floor) */
+.floor {
+  position: absolute; left: -30%; right: -30%; bottom: -10px; height: 52%;
+  transform: perspective(520px) rotateX(64deg); transform-origin: 50% 100%;
+  background-image:
+    linear-gradient(rgba(5, 150, 105, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5, 150, 105, 0.22) 1px, transparent 1px);
+  background-size: 52px 52px; animation: floorAnim 2.6s linear infinite;
+  -webkit-mask-image: linear-gradient(transparent, #000 75%); mask-image: linear-gradient(transparent, #000 75%);
+  z-index: 0; pointer-events: none;
+}
+@keyframes floorAnim { to { background-position: 0 52px; } }
+
+.sales-hero .col { position: relative; z-index: 1; }
+.sales-hero .logo { height: 42px; width: auto; margin: 0 auto 18px; }
+
+/* Título com Palavras Animadas Stagger (.w) */
+.sales-hero h1 {
+  font: 900 clamp(24px, 5.8vw, 44px)/1.12 var(--f); letter-spacing: -.02em; text-transform: uppercase; color: var(--fg);
+}
+.sales-hero h1 .w {
+  display: inline-block; opacity: 0; transform: translateY(.7em) scale(.9); filter: blur(8px);
+  animation: wordIn .65s cubic-bezier(.2, .8, .2, 1) forwards;
+  animation-delay: calc(var(--i) * 65ms + 100ms);
+}
+@keyframes wordIn { to { opacity: 1; transform: none; filter: none; } }
+.sales-hero h1 .g { color: var(--g); text-shadow: 0 0 24px rgba(5, 150, 105, 0.35); }
+.sales-hero h1 .glt { animation: wordIn .65s cubic-bezier(.2, .8, .2, 1) forwards, gltAnim 5s 2.4s infinite; animation-delay: calc(var(--i) * 65ms + 100ms), 2.4s; }
+@keyframes gltAnim {
+  0%, 90%, 100% { text-shadow: 0 0 24px rgba(5, 150, 105, 0.35); }
+  92% { text-shadow: 2px 0 #0284c7, -2px 0 #059669; }
+  96% { text-shadow: -2px 0 #0284c7, 2px 0 #059669; }
+}
+
+/* Imagem Hero com Aura e Tilt (.himg) */
+.himg {
+  position: relative; margin: -10px auto 0; padding: 40px 20px 0; max-width: 640px;
+}
+.himg::before {
+  content: ""; position: absolute; left: 10%; right: 10%; top: 15%; bottom: 0;
+  background: radial-gradient(closest-side, rgba(5, 150, 105, 0.35), transparent 75%);
+  filter: blur(28px); z-index: 0;
+}
+.himg-box {
+  position: relative; z-index: 1; border-radius: var(--r-lg); overflow: hidden;
+  box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.15); border: 1px solid var(--line);
+  background: #ffffff;
+}
+
+/* Botão com Pulso & Brilho Conforme Modelo */
+.btn-sales {
+  position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: min(100%, 540px); margin: 0 auto; background: var(--g); color: #ffffff; text-decoration: none;
+  font: 900 clamp(13px, 3.4vw, 16px)/1.2 var(--f); letter-spacing: .02em; text-transform: uppercase; padding: 18px 24px;
+  border-radius: 12px; box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.7), 0 10px 36px -8px rgba(5, 150, 105, 0.65);
+  transition: transform .15s; animation: pulseBtn 2.4s ease-in-out infinite; cursor: pointer;
+}
+.btn-sales span { white-space: nowrap; }
+.btn-sales::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg); animation: shineBtn 3.2s ease-in-out infinite;
+}
+@keyframes shineBtn { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+@keyframes pulseBtn { 50% { box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.9), 0 10px 52px -4px rgba(5, 150, 105, 0.9); } }
+.btn-sales:hover { transform: translateY(-2px) scale(1.015); }
+
+.trust {
+  display: flex; justify-content: center; gap: 6px 18px; flex-wrap: wrap; margin-top: 14px;
+  font: 700 11.5px/1.3 var(--f); letter-spacing: .04em; color: var(--dim); text-transform: uppercase;
+}
+.trust span::before { content: "✓"; color: var(--g); margin-right: 6px; font-weight: 900; }
+
+.urg {
+  margin: 18px auto 0; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  padding: 10px 16px; border: 1px solid rgba(217, 119, 6, 0.35); border-radius: 999px;
+  background: #fffbeb; color: #b45309; font: 800 12px/1.2 var(--f); letter-spacing: .06em; text-transform: uppercase;
+}
+.urg i { width: 8px; height: 8px; border-radius: 50%; background: var(--r); animation: ping 1.4s infinite; }
+.urg b { font-variant-numeric: tabular-nums; color: var(--fg); }
+
+/* FITAS TICKER TAPES CRUZADAS (.tapes) */
+.tapes { position: relative; height: 104px; overflow: hidden; margin-top: 50px; z-index: 3; }
+.tape {
+  position: absolute; left: -6%; width: 112%; overflow: hidden; font: 900 13.5px/1 var(--f);
+  letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+}
+.tape div { display: flex; gap: 34px; width: max-content; padding: 14px 0; animation: slideTape 32s linear infinite; }
+.tape span::after { content: "✕"; margin-left: 34px; opacity: .6; }
+.tape.a { top: 14px; transform: rotate(-1.6deg); background: #fbbf24; color: #121400; }
+.tape.b { top: 44px; transform: rotate(1.4deg); background: var(--g); color: #ffffff; box-shadow: 0 10px 40px -12px rgba(5, 150, 105, 0.6); }
+.tape.b div { animation-direction: reverse; animation-duration: 38s; }
+@keyframes slideTape { to { transform: translateX(-50%); } }
+
+.haz {
+  height: 12px; background: repeating-linear-gradient(135deg, #fbbf24 0 14px, #0f172a 14px 28px);
+  background-size: 40px 40px; animation: hzAnim 1.2s linear infinite; opacity: .9;
+}
+@keyframes hzAnim { to { background-position: 40px 0; } }
+
+/* CARROSSÉIS DA COMUNIDADE & MÓDULOS (.strip / .track) */
+.strip { margin-top: 26px; position: relative; }
+.track {
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 16px 14px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.track::-webkit-scrollbar { display: none; }
+.strip.auto .track { scroll-snap-type: none; }
+
+.pr {
+  flex: 0 0 min(250px, 68vw); scroll-snap-align: center; padding: 16px; border: 1px solid var(--line);
+  border-radius: 18px; background: #ffffff; cursor: pointer; text-align: left;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05); transition: border-color .2s, transform .2s;
+}
+.pr:hover { border-color: var(--g); transform: translateY(-4px); }
+.pr-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.pr-avatar { width: 36px; height: 36px; border-radius: 50%; background: #e2e8f0; display: grid; place-items: center; font-weight: 800; font-size: 13px; color: var(--fg); }
+.pr-name b { font: 800 13px var(--f); color: var(--fg); display: block; }
+.pr-name span { font-size: 11px; color: var(--dim); }
+.pr-body { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pr-proof {
+  margin-top: 10px; padding: 8px 12px; border-radius: 8px; background: #f0fdf4;
+  border: 1px solid #bbf7d0; color: #15803d; font: 800 12.5px var(--fm);
+}
+
+.ar {
+  position: absolute; top: 38%; z-index: 2; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: #ffffff; cursor: pointer; display: grid; place-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.ar:hover { border-color: var(--g); color: var(--g); }
+.ar.l { left: 8px; } .ar.r { right: 8px; }
+.ar svg { width: 18px; height: 18px; }
+
+/* QUEM SOU EU / SCRUBBER ANTES & DEPOIS (.ba / .bapin) */
+.ba { padding-top: 76px; }
+.bagrid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 42px; align-items: start; text-align: left; }
+.baside { position: relative; }
+.bapin { height: 170vh; position: relative; --p: 0; }
+.bastick { position: sticky; top: 84px; }
+.bacopy { position: sticky; top: 84px; align-self: start; }
+@media (max-width: 760px) {
+  .bagrid { grid-template-columns: 1fr; gap: 26px; }
+  .bapin { height: 140vh; }
+}
+
+.baframe {
+  position: relative; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden; background: #0f172a;
+  border: 1px solid rgba(5, 150, 105, 0.35); border-bottom: 4px solid var(--g);
+  box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.15); contain: paint; isolation: isolate;
+}
+.b-layer { position: absolute; inset: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; }
+.b-antes {
+  background: linear-gradient(180deg, #1e293b, #0f172a); color: #ffffff;
+  transform: scale(calc(1 + var(--p) * .08)); will-change: transform;
+}
+.baframe::after { content: ""; position: absolute; inset: 0; z-index: 1; background: #000; opacity: calc(var(--p) * .25); pointer-events: none; }
+.b-depois {
+  position: absolute; inset: 0; z-index: 2; overflow: hidden;
+  transform: translate3d(calc((1 - var(--p)) * -100%), 0, 0); will-change: transform;
+  background: linear-gradient(180deg, #064e3b, #065f46); color: #ffffff;
+}
+.b-depois-inner {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: translate3d(calc((1 - var(--p)) * 100%), 0, 0) scale(calc(1.2 - var(--p) * .2));
+  will-change: transform; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px;
+}
+.b-line {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none;
+  transform: translate3d(calc(var(--p) * 100%), 0, 0);
+  opacity: min(var(--p) * 10, (1 - var(--p)) * 10, 1); will-change: transform, opacity;
+}
+.b-line::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1.5px; width: 3px; background: #ffffff; box-shadow: 0 0 14px rgba(255, 255, 255, 0.9); }
+
+.b-chip {
+  position: absolute; left: 14px; bottom: 14px; z-index: 4; display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 10px; font: 800 11px/1 var(--f); letter-spacing: .12em; text-transform: uppercase;
+}
+.b-chip b { font: 900 15px/1 var(--f); letter-spacing: 0; }
+.b-c1 { background: rgba(15, 23, 42, 0.9); color: #e2e8f0; border: 1px solid #475569; opacity: clamp(0, 1 - (var(--p) - .3) * 6, 1); }
+.b-c2 { background: rgba(6, 78, 59, 0.92); color: #ecfdf5; border: 1px solid #10b981; opacity: clamp(0, (var(--p) - .55) * 6, 1); }
+.b-c2 b { color: #ffffff; }
+
+.babar { display: flex; align-items: center; gap: 10px; margin-top: 14px; font: 800 10.5px/1 var(--f); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.babar i { position: relative; flex: 1; height: 4px; border-radius: 2px; background: #e2e8f0; overflow: hidden; }
+.babar b { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--p) * 100%); background: linear-gradient(90deg, #94a3b8, var(--g)); }
+.babar span:last-child { color: var(--g); opacity: calc(.35 + var(--p) * .65); }
+
+.bacopy .tag { margin-bottom: 12px; }
+.bacopy h2 { font-size: clamp(24px, 4.4vw, 34px); line-height: 1.1; color: var(--fg); }
+.bacopy p { margin-top: 16px; color: var(--muted); font-size: 16px; line-height: 1.62; }
+.bacopy p b { color: var(--fg); font-weight: 700; }
+.bacopy p.k { color: var(--fg); font-size: 17.5px; }
+
+/* TOUR 3D DA ÁREA DE MEMBROS (.tour / .ttrack) */
+.tour { padding-top: 76px; }
+.ttrack { position: relative; margin-top: 14px; width: 100%; }
+.tstage {
+  --sw: min(780px, 86vw); --sh: min(440px, 60vw);
+  position: relative; width: 100%;
+  display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
+  overflow: hidden; padding-top: 20px;
+}
+.tview { position: relative; width: 100%; height: calc(var(--sh) + 20px); perspective: 1400px; perspective-origin: 50% 50%; }
+.tworld { position: absolute; inset: 0; transform-style: preserve-3d; }
+
+.tslide {
+  position: absolute; left: 50%; top: 50%; width: var(--sw); height: var(--sh);
+  margin-left: calc(var(--sw) / -2); margin-top: calc(var(--sh) / -2);
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line); background: #ffffff;
+  box-shadow: 0 16px 40px -15px rgba(15, 23, 42, 0.16);
+  backface-visibility: hidden; text-align: left; cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.45s ease, filter 0.45s ease;
+}
+.tbar { height: 28px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: #f8fafc; border-bottom: 1px solid var(--line); }
+.tbar i { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+.tbar span { margin: 0 auto; font: 600 10.5px/1 var(--f); letter-spacing: .04em; color: var(--dim); }
+
+.tslide-content {
+  height: calc(100% - 28px); padding: 30px; display: flex; flex-direction: column; justify-content: center;
+  background: #ffffff;
+}
+.tslide-badge { font: 800 11px var(--f); color: var(--g); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+.tslide h3 { font: 900 clamp(20px, 3.8vw, 32px) var(--f); color: var(--fg); text-transform: uppercase; margin-bottom: 12px; }
+.tslide p { font-size: clamp(14px, 1.8vw, 16px); color: var(--muted); max-width: 580px; line-height: 1.55; }
+
+.tcap { text-align: center; padding: 0 16px; margin-top: 18px; max-width: 640px; }
+.tcap h3 { font: 900 clamp(20px, 3.8vw, 30px)/1.12 var(--f); letter-spacing: -.01em; color: var(--fg); }
+.tcap p { margin-top: 6px; color: var(--muted); font-size: 15px; min-height: 46px; }
+
+.tnav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; }
+.tdots { display: flex; align-items: center; gap: 7px; }
+.tdots button { width: 8px; height: 8px; border-radius: 4px; border: 0; padding: 0; background: #cbd5e1; cursor: pointer; transition: width .3s, background .3s; }
+.tdots button.on { width: 28px; background: var(--g); box-shadow: 0 0 10px rgba(5, 150, 105, 0.4); }
+.tarr { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: #ffffff; color: var(--fg); cursor: pointer; display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06); }
+.tarr:hover { border-color: var(--g); color: var(--g); }
+.tarr svg { width: 16px; height: 16px; }
+
+/* TUDO QUE VOCÊ RECEBE NA COMUNIDADE (.list / .it) */
+.list { display: grid; gap: 10px; margin-top: 26px; text-align: left; }
+.it {
+  display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: center;
+  padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-md);
+  background: #ffffff; transition: transform .25s, border-color .25s, box-shadow .25s;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.it:hover { transform: translateX(6px); border-color: var(--g); box-shadow: 0 10px 30px -14px rgba(5, 150, 105, 0.2); }
+.it .ic {
+  grid-row: span 2; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 12px;
+  background: #ecfdf5; color: var(--g); font-family: var(--fm); font-size: 20px; font-weight: 800;
+}
+.it b { font: 800 16px/1.3 var(--f); color: var(--fg); }
+.it p { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+
+/* LINHA DO TEMPO DA ESTEIRA / FERRAMENTA PRINCIPAL (.forja / .tl / .st) */
+.forja {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 30px; align-items: center;
+  margin-top: 26px; text-align: left;
+}
+.forja .big {
+  position: relative; padding: 30px; border-radius: var(--r-lg); background: #ffffff;
+  border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); text-align: center;
+}
+.tl { position: relative; padding-left: 34px; }
+.tl::before { content: ""; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+.tl-fill { position: absolute; left: 11px; top: 8px; width: 2px; height: 0; background: var(--g); box-shadow: 0 0 10px rgba(5, 150, 105, 0.4); }
+.st { position: relative; padding: 12px 0 12px; }
+.st::before {
+  content: ""; position: absolute; left: -30px; top: 18px; width: 14px; height: 14px; border-radius: 50%;
+  background: #ffffff; border: 2px solid var(--line); transition: .4s;
+}
+.st.on::before { border-color: var(--g); background: var(--g); box-shadow: 0 0 14px var(--g); }
+.st small { font: 800 11px/1 var(--f); color: var(--g); letter-spacing: .14em; }
+.st b { display: block; margin-top: 4px; font: 800 15.5px/1.3 var(--f); color: var(--fg); }
+.st p { color: var(--muted); font-size: 13.5px; line-height: 1.4; }
+
+/* MÓDULOS (.mod) */
+.mod { flex: 0 0 min(200px, 54vw); scroll-snap-align: center; text-align: left; }
+.mod .im {
+  border-radius: 12px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 1092/1440;
+  background: #f1f5f9; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 20px; text-align: center; transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.mod:hover .im { transform: translateY(-6px) rotate(-1deg); border-color: var(--g); box-shadow: 0 18px 40px -16px rgba(5, 150, 105, 0.3); }
+.mod small { display: block; margin-top: 8px; font: 800 11px/1 var(--f); letter-spacing: .12em; color: var(--g); text-transform: uppercase; }
+.mod span { display: block; margin-top: 4px; font: 700 13px/1.3 var(--f); color: var(--fg); }
+
+/* BÔNUS EXCLUSIVOS COM CARIMBO GIRATÓRIO (.bgrid / .bn / .stamp) */
+.bgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 30px; text-align: left; }
+.bn {
+  position: relative; padding: 20px; border: 1px solid var(--line); border-radius: var(--r-md);
+  background: #ffffff; transition: transform .3s, border-color .3s, box-shadow .3s;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+.bn:hover { transform: translateY(-6px); border-color: var(--g); box-shadow: 0 16px 36px -12px rgba(5, 150, 105, 0.2); }
+.bn .th {
+  height: 90px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-sm);
+  background: #f8fafc; border: 1px solid var(--line); margin-bottom: 14px; color: var(--g);
+}
+.bn small { font: 800 10.5px/1 var(--f); letter-spacing: .16em; color: #b45309; text-transform: uppercase; }
+.bn b { display: block; margin-top: 6px; font: 800 16.5px/1.25 var(--f); color: var(--fg); }
+.bn p { margin-top: 6px; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+.val { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.val s { position: relative; color: var(--dim); font: 800 14px/1 var(--f); text-decoration: none; }
+.val s::after {
+  content: ""; position: absolute; left: -3px; right: -3px; top: 52%; height: 2px;
+  background: var(--r); transform: scaleX(0); transform-origin: left; transition: transform .6s .5s;
+}
+.val.in s::after { transform: scaleX(1); }
+.stamp {
+  display: inline-block; font: 900 12.5px/1 var(--f); letter-spacing: .1em; text-transform: uppercase;
+  color: #ffffff; background: var(--g); border-radius: 6px; padding: 6px 10px;
+  transform: scale(2.4) rotate(-14deg); opacity: 0;
+  transition: transform .45s cubic-bezier(.2, 1.4, .4, 1) .8s, opacity .2s .8s;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+}
+.val.in .stamp { transform: rotate(-4deg); opacity: 1; }
+
+.free {
+  margin: 20px auto 0; padding: 22px 16px; border: 1.5px dashed rgba(5, 150, 105, 0.45);
+  border-radius: 16px; background: #ecfdf5; text-align: center;
+}
+.free b { display: block; font: 900 clamp(20px, 4.6vw, 27px)/1.15 var(--f); text-transform: uppercase; color: var(--fg); }
+.free b em { font-style: normal; color: var(--g); }
+.free p { margin-top: 6px; color: var(--muted); font-size: 14.5px; }
+
+/* SEÇÃO DE PREÇO COM BORDA CÔNICA GIRATÓRIA (.price / .pin) */
+.price {
+  position: relative; margin: 30px auto 0; max-width: 580px; border-radius: 24px; padding: 3px;
+  text-align: left; background: conic-gradient(from var(--a, 0deg), var(--g), #fbbf24, var(--g), #064e3b, var(--g));
+  animation: spinBorder 6s linear infinite; box-shadow: 0 0 80px -20px rgba(5, 150, 105, 0.4);
+}
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes spinBorder { to { --a: 360deg; } }
+
+.pin { border-radius: 22px; background: #ffffff; padding: 28px 24px; position: relative; overflow: hidden; }
+.phead { position: relative; text-align: center; }
+.phead .chip {
+  display: inline-flex; align-items: center; gap: 8px; font: 900 11.5px/1 var(--f); letter-spacing: .14em;
+  text-transform: uppercase; color: #121400; background: #fbbf24; border-radius: 6px; padding: 7px 10px;
+}
+.phead .chip i { width: 7px; height: 7px; border-radius: 50%; background: #e00; animation: ping 1.4s infinite; }
+.phead h3 { margin-top: 12px; font: 900 22px/1.15 var(--f); text-transform: uppercase; color: var(--fg); }
+
+.big-tm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0 4px; }
+.big-tm div { border: 1px solid rgba(217, 119, 6, 0.3); border-radius: 10px; background: #fffbeb; padding: 10px 4px 8px; text-align: center; }
+.big-tm b { display: block; font: 900 26px/1 var(--f); color: #b45309; font-variant-numeric: tabular-nums; }
+.big-tm small { display: block; margin-top: 5px; font: 700 9.5px/1 var(--f); letter-spacing: .14em; color: var(--dim); text-transform: uppercase; }
+
+.stack { position: relative; margin: 18px 0 0; display: grid; gap: 8px; }
+.row {
+  display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #f8fafc;
+}
+.row .ri {
+  width: 44px; height: 44px; border-radius: 10px; background: #ecfdf5; display: grid; place-items: center;
+  color: var(--g); font-weight: 800; font-family: var(--fm);
+}
+.row small { display: block; font: 800 9.5px/1 var(--f); letter-spacing: .14em; color: var(--g); text-transform: uppercase; }
+.row b { display: block; margin-top: 3px; font: 800 13.5px/1.25 var(--f); color: var(--fg); }
+.row .rv2 { text-align: right; min-width: 78px; }
+.row .rv2 s { display: block; color: var(--dim); font: 800 13px/1 var(--f); text-decoration: none; position: relative; }
+.row .rv2 s::after { content: ""; position: absolute; left: -2px; right: -2px; top: 52%; height: 2px; background: var(--r); }
+.row .rv2 .stamp { margin-top: 4px; font-size: 10.5px; padding: 4px 7px; opacity: 1; transform: rotate(-4deg); }
+
+.total {
+  position: relative; margin-top: 14px; padding: 14px 4px 0; border-top: 1px dashed var(--line);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+}
+.total span { font: 800 12px/1 var(--f); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.total s { color: var(--dim); font: 900 20px/1 var(--f); text-decoration: line-through; }
+
+.today {
+  position: relative; text-align: center; margin-top: 14px; padding: 18px 10px 16px; border-radius: 16px;
+  background: #f0fdf4; border: 1.5px solid #a7f3d0;
+}
+.today .lb2 { font: 800 12px/1 var(--f); letter-spacing: .16em; text-transform: uppercase; color: #15803d; }
+.today .pv {
+  margin-top: 6px; font: 900 clamp(54px, 14vw, 76px)/1 var(--f); letter-spacing: -.05em; color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.today .pv .x12 { display: block; font-style: normal; font-size: .3em; line-height: 1; letter-spacing: .02em; margin-bottom: .22em; color: var(--g); }
+.today .pv sup { font-size: .34em; vertical-align: 1.1em; margin-right: 6px; letter-spacing: 0; color: var(--g); }
+.today .par { margin-top: 6px; color: var(--muted); font-size: 15px; font-weight: 600; }
+.today .par b { color: var(--fg); }
+.save {
+  display: inline-block; margin-top: 12px; font: 900 12.5px/1 var(--f); letter-spacing: .08em; text-transform: uppercase;
+  color: #ffffff; background: var(--g); border-radius: 999px; padding: 8px 16px;
+}
+
+/* GARANTIA (.guar) */
+.guar {
+  display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; text-align: left;
+  border: 1px solid var(--line); border-radius: 18px; padding: 24px; background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04); margin-top: 30px;
+}
+.guar-icon { width: 64px; height: 64px; border-radius: 14px; background: #ecfdf5; color: var(--g); display: grid; place-items: center; }
+.guar h3 { font: 900 clamp(17px, 4vw, 22px)/1.2 var(--f); text-transform: uppercase; color: var(--fg); }
+.guar p { margin-top: 6px; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+
+/* VÍDEOS DE PROVA (.vids) */
+.vids { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 26px; max-width: 640px; margin-inline: auto; }
+.vid {
+  position: relative; border: 1.5px solid #a7f3d0; border-radius: 18px; overflow: hidden; background: #000; aspect-ratio: 9/16;
+  box-shadow: 0 10px 30px rgba(5, 150, 105, 0.2);
+}
+.vid iframe, .vid video { width: 100%; height: 100%; display: block; object-fit: cover; }
+@media (max-width: 640px) { .vids { grid-template-columns: 1fr; max-width: 320px; } }
+
+/* FAQ (.faq / details) */
+.faq { margin-top: 22px; text-align: left; display: grid; gap: 8px; }
+details { border: 1px solid var(--line); border-radius: 10px; background: #ffffff; }
+details[open] { border-color: var(--g); }
+summary {
+  cursor: pointer; list-style: none; padding: 16px 20px; font: 700 15px/1.35 var(--f); color: var(--fg);
+  display: flex; justify-content: space-between; gap: 14px; align-items: center;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font: 500 22px/1 var(--f); color: var(--g); flex: none; transition: transform .2s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { padding: 0 20px 18px; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+
+/* ÚLTIMA CHAMADA (.last) */
+.last { padding: 60px 0 30px; text-align: center; }
+.last h2 { max-width: 14em; margin: 0 auto 16px; }
+
+/* FLOATING STICKY FOOTER COM DEGRADÊ TRANSLÚCIDO E TIMER (.sticky) */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+  padding: 34px 16px calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(248, 250, 252, 0.82) 42%, rgba(248, 250, 252, 0.98) 100%);
+  border: none; pointer-events: none;
+  transform: translateY(120%); transition: transform .32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex; justify-content: center; text-align: center;
+}
+.sticky.on { transform: translateY(0); }
+.sticky-inner {
+  pointer-events: auto; display: flex; flex-direction: column; align-items: center;
+  width: min(100%, 480px); gap: 6px;
+}
+.sticky-timer-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(15, 23, 42, 0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: #f8fafc; padding: 4px 12px; border-radius: 999px;
+  font: 700 11px/1.2 var(--fm); letter-spacing: .03em;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+.sticky-timer-num { color: #fbbf24; font-weight: 800; }
+.btn-floating-cta {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  padding: 15px 22px; background: var(--g); color: #ffffff; border-radius: 999px;
+  font: 900 clamp(13px, 3.5vw, 15.5px)/1.2 var(--f); text-transform: uppercase; letter-spacing: .02em;
+  text-decoration: none; box-shadow: 0 12px 28px -4px rgba(5, 150, 105, 0.52), 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-floating-cta:hover {
+  transform: translateY(-2px); box-shadow: 0 16px 36px -4px rgba(5, 150, 105, 0.65);
+}
+.sticky-micro { font: 600 11px/1.2 var(--f); color: var(--dim); }
+
+footer {
+  margin-top: 60px; padding: 36px 0 50px; border-top: 1px solid var(--line);
+  color: var(--dim); font-size: 12px; line-height: 1.7; text-align: center; background: #ffffff;
+}
+footer b { color: var(--fg); }
+
+/* VSL HERO STYLING & UNBROKEN CTA */
+.vsl-hero-wrapper { margin-top: 24px; width: 100%; }
+.vsl-card {
+  background: #ffffff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
+}
+.vsl-top-bar {
+  display: flex; align-items: center; justify-content: space-between; padding: 10px 16px;
+  background: #f8fafc; border-bottom: 1px solid var(--line); font: 700 11px/1.2 var(--fm);
+}
+.vsl-live-tag { display: flex; align-items: center; gap: 6px; color: #ef4444; letter-spacing: .06em; }
+.vsl-live-pulse {
+  width: 8px; height: 8px; border-radius: 50%; background: #ef4444;
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); animation: pulse-red 1.8s infinite;
+}
+@keyframes pulse-red {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.vsl-audio-notice { display: flex; align-items: center; gap: 5px; color: var(--dim); letter-spacing: .04em; }
+.vsl-video-frame { position: relative; width: 100%; padding-bottom: 56.25%; background: #090d16; height: 0; }
+.vsl-video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+.vsl-cta-box { margin-top: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.btn-sales-vsl {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: min(100%, 540px); padding: 18px 24px; background: var(--g); color: #ffffff;
+  font: 900 clamp(13px, 3.4vw, 16px)/1.2 var(--f); text-transform: uppercase; letter-spacing: .02em;
+  border-radius: 12px; text-decoration: none; box-shadow: 0 12px 28px -4px rgba(5, 150, 105, 0.45);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-sales-vsl:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -4px rgba(5, 150, 105, 0.55); }
+.btn-unbroken-text { white-space: nowrap; }
+.vsl-security-badges {
+  margin-top: 10px; font: 600 12px var(--f); color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+}
+.vsl-security-badges span { display: inline-flex; align-items: center; gap: 4px; }
+
+/* STRIP & CARROSSEL DESKTOP ALIGNMENT */
+@media (min-width: 1024px) {
+  .strip { max-width: 1120px; margin-left: auto; margin-right: auto; padding: 0 44px; }
+  .strip .track { padding: 10px 0 20px; justify-content: flex-start; }
+  .strip .ar.l { left: 0px; }
+  .strip .ar.r { right: 0px; }
+  .mod { flex: 0 0 236px; }
+}
+
+/* VÍDEOS DE ALUNOS EM CARROSSEL */
+.vid-card {
+  flex: 0 0 min(300px, 78vw); scroll-snap-align: start; background: #ffffff;
+  border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05); display: flex; flex-direction: column;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.vid-card:hover { transform: translateY(-4px); border-color: var(--g); box-shadow: 0 16px 36px -10px rgba(5, 150, 105, 0.22); }
+.vid-thumb { position: relative; width: 100%; aspect-ratio: 16 / 10; background: #090d16; overflow: hidden; }
+.vid-thumb iframe { width: 100%; height: 100%; border: 0; }
+.vid-badge-proof {
+  position: absolute; top: 10px; left: 10px; background: #ecfdf5; color: var(--g);
+  border: 1px solid #a7f3d0; font: 800 11px var(--fm); padding: 4px 8px; border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12); pointer-events: none;
+}
+.vid-info { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.vid-author { display: flex; flex-direction: column; }
+.vid-author b { font: 800 14px var(--f); color: var(--fg); }
+.vid-author span { font: 600 11.5px var(--f); color: var(--muted); }
+.vid-info p { font-size: 13px; line-height: 1.45; color: #334155; font-style: italic; }
+
+</style>
+</head>
+<body>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="vig" aria-hidden="true"></div>
+
+<!-- BARRA DE PROGRESSO GLOBAL NO CABEÇALHO (Visível no Quiz, Cascata e TSL; Some na Página de Vendas) -->
+<div id="top-progress"></div>
+
+<!-- CABEÇALHO EM AMARELO (Aparece APENAS na Página de Vendas) -->
+<div id="sales-top-banner">
+  <span class="live"></span>
+  <span>OPERAÇÃO ALMANAK · PROTOCOLO LIBERADO</span>
+  <span class="off">VALOR SOCIAL R$ 55</span>
+  <span class="tm">VAGAS EXPIRAM EM: <b data-tmr="">05h 15m 03s</b></span>
+</div>
+
+<!-- POP-DOWN DE NOTIFICAÇÃO DE VENDAS COM CACTO GLOW -->
+<div class="vnd" id="vnd">
+  <div class="vnd-card">
+    <div class="vnd-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
+        <path d="M7 20h10a1 1 0 0 1 1 1v1H6v-1a1 1 0 0 1 1-1z" opacity="0.85"/>
+        <rect x="10" y="3" width="4" height="17" rx="2"/>
+        <path d="M10 12H8a2 2 0 0 1-2-2V7a1 1 0 0 1 2 0v3h2v2z"/>
+        <path d="M14 14h2a2 2 0 0 0 2-2V9a1 1 0 0 0-2 0v3h-2v2z"/>
+      </svg>
+    </div>
+    <div class="vnd-info">
+      <div class="vnd-head">
+        <span class="vnd-name" id="vnd-name">Venda aprovada no Pix!</span>
+        <span class="vnd-badge" id="vnd-time">há 8m</span>
+      </div>
+      <div class="vnd-body" id="vnd-body">Sua comissão: <b class="green">R$ 24,01</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTÃO DISCRETO DE ÁUDIO -->
+<button class="mus muted" id="mus-btn" aria-label="Alternar som">
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+</button>
+
+<!-- =======================================================================
+     FASE 1: TELA HERO (TESTE DE APTIDÃO OPERACIONAL)
+     - Sem travessões ("—")
+     - Subheadline curta, impactante e direta
+     - Disclaimer com bordas retas/sutis (border-radius: 8px)
+     - Notificações acumuladas em cascata (substituindo o card antigo)
+     ======================================================================= -->
+<section class="screen-panel active" id="screen-hero">
+  <div class="col hero">
+    <div class="hero-badge-box">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>TESTE DE APTIDÃO OPERACIONAL · PROTOCOLO ALMANAK</span>
+    </div>
+
+    <h1>
+      Você tem o perfil para operar a brecha de comissões invisíveis do TikTok: <span class="g">sem aparecer</span> e <span class="g">sem gastar 1 real com anúncios</span>?
+    </h1>
+
+    <p class="sub">
+      Esqueça cursos que te mandam queimar R$ 1.000 no Meta Ads enquanto sua fatura estoura. A Operação Almanak é uma rotina mecânica de 45 minutos no celular. Este teste de 60 segundos audita se você está apto a receber o protocolo liberado.
+    </p>
+
+    <!-- NOTIFICAÇÕES ACUMULADAS EM CASCATA SUBSTITUINDO O CARD ANTIGO -->
+    <div class="hero-sales-stack">
+      <div class="h-stack-card c1">
+        <div class="vnd-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M7 20h10a1 1 0 0 1 1 1v1H6v-1a1 1 0 0 1 1-1z" opacity="0.85"/><rect x="10" y="3" width="4" height="17" rx="2"/><path d="M10 12H8a2 2 0 0 1-2-2V7a1 1 0 0 1 2 0v3h2v2z"/><path d="M14 14h2a2 2 0 0 0 2-2V9a1 1 0 0 0-2 0v3h-2v2z"/></svg>
+        </div>
+        <div class="vnd-info">
+          <div class="vnd-head">
+            <span class="vnd-name">Venda aprovada no Pix!</span>
+            <span class="vnd-badge">há 2m</span>
+          </div>
+          <div class="vnd-body">Sua comissão: <b class="green">R$ 55,00</b></div>
+        </div>
+      </div>
+
+      <div class="h-stack-card c2">
+        <div class="vnd-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M7 20h10a1 1 0 0 1 1 1v1H6v-1a1 1 0 0 1 1-1z" opacity="0.85"/><rect x="10" y="3" width="4" height="17" rx="2"/><path d="M10 12H8a2 2 0 0 1-2-2V7a1 1 0 0 1 2 0v3h2v2z"/><path d="M14 14h2a2 2 0 0 0 2-2V9a1 1 0 0 0-2 0v3h-2v2z"/></svg>
+        </div>
+        <div class="vnd-info">
+          <div class="vnd-head">
+            <span class="vnd-name">Venda aprovada no Pix - Orderbump!</span>
+            <span class="vnd-badge">há 7m</span>
+          </div>
+          <div class="vnd-body">Sua comissão: <b class="green">R$ 12,01</b></div>
+        </div>
+      </div>
+
+      <div class="h-stack-card c3">
+        <div class="vnd-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M7 20h10a1 1 0 0 1 1 1v1H6v-1a1 1 0 0 1 1-1z" opacity="0.85"/><rect x="10" y="3" width="4" height="17" rx="2"/><path d="M10 12H8a2 2 0 0 1-2-2V7a1 1 0 0 1 2 0v3h2v2z"/><path d="M14 14h2a2 2 0 0 0 2-2V9a1 1 0 0 0-2 0v3h-2v2z"/></svg>
+        </div>
+        <div class="vnd-info">
+          <div class="vnd-head">
+            <span class="vnd-name">Wise Recebido!</span>
+            <span class="vnd-badge">hoje</span>
+          </div>
+          <div class="vnd-body">Recebido <b>210,00 €</b> · Cliente Lisboa</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTÃO CTA DA HERO -->
+    <button class="btn-cta btn-pill" id="btn-start">
+      <span>INICIAR TESTE DE APTIDÃO OPERACIONAL (LEVA 60 SEGUNDOS)</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <div class="hero-privacy-note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Auditoria confidencial · 8 etapas de qualificação técnica</span>
+    </div>
+  </div>
+
+  <div class="col" style="margin-top: 40px;">
+    <footer style="background: transparent; border-top: 1px solid var(--line); padding: 24px 0;">
+      <p><b>Comunidade Oficial Almanak</b> · Todos os direitos reservados.</p>
+    </footer>
+  </div>
+</section>
+
+<!-- =======================================================================
+     FASE 2: QUIZ COM PERGUNTAS INTEGRADAS DIRETAMENTE NO BACKGROUND
+     - Sem as pílulas de frases embaixo do disclaimer de etapa
+     - Pergunta 1 com verbatims reais dos clientes
+     ======================================================================= -->
+<section class="screen-panel" id="screen-quiz">
+  <div class="col quiz-integrated-wrap">
+    <div id="quiz-content-area"></div>
+  </div>
+</section>
+
+<!-- =======================================================================
+     FASE 3: CARREGAMENTO EM CASCATA COM CARDS SEQUENCIAIS
+     ======================================================================= -->
+<section class="screen-panel" id="screen-calc">
+  <div class="col cascade-stage">
+    <h2 style="font: 900 22px var(--f); color: var(--fg); text-transform: uppercase;">Auditando Parâmetros de Aptidão</h2>
+    <p style="font-size: 14px; color: var(--muted); margin-top: 4px;">Cruzando suas respostas com a capacidade operacional da Comunidade Almanak...</p>
+
+    <div class="cascade-cards-list">
+      <div class="c-card" id="c1">
+        <div class="c-top">
+          <span class="c-title">1. Auditoria de Hardware & Conexão Móvel</span>
+          <span class="c-tag" id="t1">Analisando...</span>
+        </div>
+        <div class="c-desc">Verificando viabilidade de execução 100% pelo smartphone sem nenhum computador.</div>
+        <div class="c-bar-wrap"><div class="c-bar-fill" id="b1"></div></div>
+      </div>
+
+      <div class="c-card" id="c2">
+        <div class="c-top">
+          <span class="c-title">2. Janela de Rotina & Execução sem Anúncios</span>
+          <span class="c-tag" id="t2">Pendente</span>
+        </div>
+        <div class="c-desc">Eliminando necessidade de queimar dinheiro com anúncios no Meta Ads ou Facebook.</div>
+        <div class="c-bar-wrap"><div class="c-bar-fill" id="b2"></div></div>
+      </div>
+
+      <div class="c-card" id="c3">
+        <div class="c-top">
+          <span class="c-title">3. Perfil de Bastidores & Anonimato (Dark)</span>
+          <span class="c-tag" id="t3">Pendente</span>
+        </div>
+        <div class="c-desc">Configurando esteira e scripts validados sem precisar gravar vídeos ou mostrar o rosto.</div>
+        <div class="c-bar-wrap"><div class="c-bar-fill" id="b3"></div></div>
+      </div>
+
+      <div class="c-card" id="c4">
+        <div class="c-top">
+          <span class="c-title">4. Mapeamento de Brechas TikTok & Euro Wise</span>
+          <span class="c-tag" id="t4">Pendente</span>
+        </div>
+        <div class="c-desc">Localizando brechas de carrosséis no TikTok e rotas de recebimento em Euro pela Wise.</div>
+        <div class="c-bar-wrap"><div class="c-bar-fill" id="b4"></div></div>
+      </div>
+    </div>
+
+    <div class="c-final-badge" id="c-final">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span>AUDITORIA CONCLUÍDA: PERFIL COMPATÍVEL & VAGA LIBERADA!</span>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================================
+     FASE 4: MINI-TSL INTEGRADA AO BACKGROUND (SEM CARDS BOXED)
+     - Regra de no máximo 3 linhas por parágrafo + linha de respiro
+     ======================================================================= -->
+<section class="screen-panel" id="screen-diag">
+  <div class="col tsl-wrap">
+    <div class="tsl-status-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      <span>RESULTADO DO TESTE: PERFIL QUALIFICADO & APROVADO</span>
+    </div>
+
+    <h2 class="tsl-heading">
+      O Seu Diagnóstico Operacional: Por Que Você Não Vendeu Antes e Como Virar o Jogo em 48 Horas
+    </h2>
+
+    <p class="tsl-p">
+      Com base nas suas respostas, ficou comprovado que a culpa pelas suas frustrações anteriores nunca foi sua.
+    </p>
+
+    <p class="tsl-p">
+      O mercado tradicional brasileiro foi desenhado para o pequeno quebrar: exigem que você gaste R$ 1.000 em anúncios no Meta Ads antes de ver a cor da primeira venda.
+    </p>
+
+    <p class="tsl-p">
+      Quem acorda às 6h da manhã, pega ônibus lotado e almoça marmita fria não tem dinheiro para queimar em tráfego pago na internet.
+    </p>
+
+    <p class="tsl-p">
+      O seu perfil é <b>100% compatível com a Operação Almanak</b> porque você possui o ativo indispensável: a disposição de seguir uma rotina mecânica de 45 minutos diários no celular.
+    </p>
+
+    <h3 class="tsl-subheading">A Nossa Virada: A Brecha Invisível do TikTok</h3>
+
+    <p class="tsl-p">
+      Nós descobrimos que o algoritmo do TikTok entrega dezenas de milhares de visualizações gratuitas para carrosséis simples de 7 slides de fotos e texto.
+    </p>
+
+    <p class="tsl-p">
+      Você não precisa gravar vídeo, não precisa falar no microfone e não precisa colocar a sua cara na internet se tiver vergonha.
+    </p>
+
+    <p class="tsl-p">
+      Um único carrossel bem estruturado atinge de 20.000 a 80.000 pessoas sem você gastar 1 centavo, direcionando compradores prontos direto para o seu Pix.
+    </p>
+
+    <h3 class="tsl-subheading">As 3 Engrenagens do Mecanismo Único</h3>
+
+    <div class="tsl-gear-list">
+      <div class="tsl-gear-item">
+        <div class="tsl-gear-num">01</div>
+        <div class="tsl-gear-info">
+          <b>Arbitragem de Carrosséis Invisíveis</b>
+          <p>Modelos de 7 slides copiados e colados no Canva pelo celular em 15 minutos, gerando tráfego qualificado a custo zero.</p>
+        </div>
+      </div>
+
+      <div class="tsl-gear-item">
+        <div class="tsl-gear-num">02</div>
+        <div class="tsl-gear-info">
+          <b>Anerak Euro (Wise Internacional)</b>
+          <p>Contratos de 210 € fechados via WhatsApp com pequenos comércios de Portugal para receber em Euro limpo.</p>
+        </div>
+      </div>
+
+      <div class="tsl-gear-item">
+        <div class="tsl-gear-num">03</div>
+        <div class="tsl-gear-info">
+          <b>Quiz Funnel de Infoprodutos</b>
+          <p>Substituição de páginas frias por funis interativos com esteira de Order Bumps para destravar comissões diárias de R$ 55 a R$ 1.000 no Pix.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="tsl-subheading">Para Quem É vs Para Quem Não É</h3>
+
+    <p class="tsl-p">
+      <b>Para quem é:</b> para quem tem apenas um celular simples, 45 minutos livres por dia e precisa de uma renda extra previsível sem se expor.
+    </p>
+
+    <p class="tsl-p">
+      <b>Para quem NÃO é:</b> para quem busca botão mágico de enriquecer sem trabalhar, pirâmides, apostas online ou quem quer virar blogueiro famoso.
+    </p>
+
+    <h3 class="tsl-subheading">A Encruzilhada das Duas Escolhas</h3>
+
+    <p class="tsl-p">
+      Você tem dois caminhos diante de você: fechar esta página, voltar para a rotina cansativa e ver as contas vencerem no fim do mês.
+    </p>
+
+    <p class="tsl-p">
+      Ou ativar o protocolo da Operação Almanak agora mesmo, receber seus primeiros templates prontos e colocar seu primeiro carrossel lucrativo para rodar nas próximas 48 horas.
+    </p>
+
+    <div style="text-align: center; margin-top: 36px;">
+      <button class="btn-cta btn-pill" id="btn-diag-next">
+        <span>ACESSAR PROTOCOLO OPERACIONAL LIBERADO</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- =======================================================================
+     FASE 5: PÁGINA DE VENDAS COMPLETA (MODELADA DA FÁBRICA DE LOW TICKET)
+     - Todas as seções, elementos e animações reproduzidos na íntegra
+     ======================================================================= -->
+<section class="screen-panel" id="screen-pitch">
+
+  <!-- 1. HERO COM GRADE 3D (.floor) E PALAVRAS ANIMADAS (.w) -->
+  <section class="sales-hero">
+    <div class="floor" aria-hidden="true"></div>
+    <div class="col">
+      <div class="hero-badge-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>OPERAÇÃO ALMANAK · COMUNIDADE OFICIAL</span>
+      </div>
+
+      <h1 aria-label="Do R$0 a R$1.000 por dia com arbitragem no TikTok">
+        <span class="w" style="--i:0">Do</span>
+        <span class="w g" style="--i:1">R$0</span>
+        <span class="w" style="--i:2">a</span>
+        <span class="w g glt" style="--i:3">R$1.000</span>
+        <span class="w" style="--i:4">por</span>
+        <span class="w" style="--i:5">dia</span>
+        <span class="w" style="--i:6">no</span>
+        <span class="w g" style="--i:7">Pix</span>
+        <span class="w" style="--i:8">com</span>
+        <span class="w" style="--i:9">carrosséis</span>
+        <span class="w" style="--i:10">invisíveis</span>
+        <span class="w" style="--i:11">no</span>
+        <span class="w" style="--i:12">TikTok:</span>
+        <span class="w" style="--i:13">sem</span>
+        <span class="w" style="--i:14">aparecer</span>
+        <span class="w" style="--i:15">e</span>
+        <span class="w" style="--i:16">sem</span>
+        <span class="w" style="--i:17">gastar</span>
+        <span class="w" style="--i:18">com</span>
+        <span class="w g" style="--i:19">anúncios</span>
+      </h1>
+
+      <!-- VSL VIDEO PLAYER RESPONSIVO 16:9 COM CONTROLES PREMIUM -->
+      <div class="vsl-hero-wrapper">
+        <div class="vsl-card">
+          <div class="vsl-top-bar">
+            <div class="vsl-live-tag">
+              <span class="vsl-live-pulse"></span>
+              <span>TRANSMISSÃO OFICIAL LIBERADA</span>
+            </div>
+            <div class="vsl-audio-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              <span>ÁUDIO ATIVADO</span>
+            </div>
+          </div>
+          
+          <div class="vsl-video-frame">
+            <iframe 
+              src="https://www.youtube.com/embed/S4GtTyNwIyQ?autoplay=0&rel=0&modestbranding=1" 
+              title="Apresentação Oficial Operação Almanak" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÃO CTA PRINCIPAL DA VSL (100% UNBROKEN / SEM QUEBRA ESTRANHA) -->
+      <div class="vsl-cta-box">
+        <a class="btn-sales-vsl pulse" href="#oferta">
+          <span class="btn-unbroken-text">QUERO ATIVAR MINHA OPERAÇÃO POR R$ 55</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="vsl-security-badges">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Pagamento Único</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Acesso Imediato</span>
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantia de 7 Dias</span>
+        </div>
+      </div>
+
+      <!-- MOCKUP VISUAL HERO COM TILT 3D -->
+      <div class="himg" id="himg">
+        <div class="himg-box" style="padding: 24px; text-align: left;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 16px;">
+            <b style="font: 800 13px var(--f); text-transform: uppercase;">PAINEL OPERACIONAL ALMANAK</b>
+            <span style="font: 800 11px var(--fm); color: var(--g); background: #ecfdf5; padding: 3px 8px; border-radius: 4px;">SISTEMA ATIVO</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+            <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--line);">
+              <small style="font: 800 10px var(--f); color: var(--dim); text-transform: uppercase;">Arbitragem Nacional</small>
+              <b style="font: 900 18px var(--f); color: var(--g); display: block; margin-top: 4px;">R$ 55 a R$ 1k/dia</b>
+            </div>
+            <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--line);">
+              <small style="font: 800 10px var(--f); color: var(--dim); text-transform: uppercase;">Internacional (Wise)</small>
+              <b style="font: 900 18px var(--f); color: #b45309; display: block; margin-top: 4px;">+ 210 € / Contrato</b>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line);">
+              <span><b>Carrossel #04:</b> Pix Aprovado R$ 55,00</span>
+              <span style="font-weight: 700; color: var(--dim);">há 2m</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--line);">
+              <span><b>Contrato Lisboa:</b> Wise Recebido 210,00 €</span>
+              <span style="font-weight: 700; color: var(--dim);">hoje</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. FITAS ANIMADAS CRUZADAS (.tapes) -->
+  <div class="tapes" aria-hidden="true">
+    <div class="tape a"><div><span>Operação Almanak</span><span>Custo Zero de Tráfego</span><span>Carrosséis de 7 Slides</span><span>Garantia 7 Dias</span><span>Operação Almanak</span><span>Custo Zero de Tráfego</span><span>Carrosséis de 7 Slides</span><span>Garantia 7 Dias</span></div></div>
+    <div class="tape b"><div><span>Sem Aparecer</span><span>Pix Diário R$ 55 a R$ 1.000</span><span>Anerak Euro Wise 210 €</span><span>Sem Aparecer</span><span>Pix Diário R$ 55 a R$ 1.000</span><span>Anerak Euro Wise 210 €</span></div></div>
+  </div>
+
+  <!-- 3. COMUNIDADE: CONVERSAS EM CARROSSEL CONTÍNUO (.strip.auto) -->
+  <section style="padding-top: 60px;">
+    <div class="col" style="text-align: center;">
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Veja o Poder da Nossa <em style="font-style: normal; color: var(--g);">Comunidade</em>
+      </h2>
+      <p style="color: var(--muted); font-size: 15.5px; margin-top: 8px;">Resultados diários de membros aplicando a arbitragem no celular.</p>
+    </div>
+
+    <div class="strip auto">
+      <button class="ar l" type="button" aria-label="Anterior" data-dir="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+      <div class="track">
+        <div class="pr">
+          <div class="pr-head">
+            <div class="pr-avatar">M</div>
+            <div class="pr-name"><b>Marcos S.</b><span>Membro há 18 dias</span></div>
+          </div>
+          <div class="pr-body">"Bati minha meta do mês em 6 dias só postando carrossel dark no almoço da firma. Primeira vez que sobra dinheiro na conta!"</div>
+          <div class="pr-proof">Pix Recebido: +R$ 165,00 hoje</div>
+        </div>
+
+        <div class="pr">
+          <div class="pr-head">
+            <div class="pr-avatar">R</div>
+            <div class="pr-name"><b>Rodrigo F.</b><span>Membro há 24 dias</span></div>
+          </div>
+          <div class="pr-body">"Fechei meu primeiro cliente em Lisboa pelo roteiro do Anerak Euro. 210 Euros já caíram na Wise e converti direto pro Pix!"</div>
+          <div class="pr-proof">Wise Recebido: +210,00 € (R$ 1.280)</div>
+        </div>
+
+        <div class="pr">
+          <div class="pr-head">
+            <div class="pr-avatar">A</div>
+            <div class="pr-name"><b>Aline P.</b><span>Membro há 12 dias</span></div>
+          </div>
+          <div class="pr-body">"Eu morria de vergonha de aparecer. Segui o modelo pronto de 7 slides e meu terceiro post bateu 44k views orgânicas no TikTok."</div>
+          <div class="pr-proof">8 vendas no Pix: +R$ 440,00</div>
+        </div>
+
+        <div class="pr">
+          <div class="pr-head">
+            <div class="pr-avatar">D</div>
+            <div class="pr-name"><b>Diego T.</b><span>Membro há 31 dias</span></div>
+          </div>
+          <div class="pr-body">"Tava quebrando a cabeça com Meta Ads gastando R$ 50/dia. Troquei pelo Quiz Funnel da comunidade e recuperei tudo."</div>
+          <div class="pr-proof">Faturamento: +R$ 3.850,00 no mês</div>
+        </div>
+      </div>
+      <button class="ar r" type="button" aria-label="Próximo" data-dir="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <!-- 4. QUEM SOU EU / SCRUBBER ANTES E DEPOIS (.ba / .bapin) -->
+  <section class="ba" id="quemsou">
+    <div class="wide">
+      <div class="bagrid">
+        <div class="baside">
+          <div class="bapin" id="bapin">
+            <div class="bastick" id="bastick">
+              <div class="baframe" id="baframe">
+                <div class="b-layer b-antes">
+                  <span style="font: 800 11px var(--f); color: #f87171; letter-spacing: .12em; text-transform: uppercase;">ANTES DA OPERAÇÃO</span>
+                  <h3 style="font: 900 22px var(--f); margin-top: 10px; text-transform: uppercase;">Fatura Atrasada & Rotina 12h</h3>
+                  <p style="font-size: 14.5px; color: #cbd5e1; margin-top: 8px; max-width: 320px; line-height: 1.5;">
+                    Trabalho exaustivo, marmita requentada e o desespero de ver o limite do cartão estourado sem perspectiva.
+                  </p>
+                  <div class="b-chip b-c1">STATUS: <b>SALDO R$ 0,00</b></div>
+                </div>
+
+                <div class="b-depois">
+                  <div class="b-depois-inner">
+                    <span style="font: 800 11px var(--f); color: #34d399; letter-spacing: .12em; text-transform: uppercase;">DEPOIS DA OPERAÇÃO</span>
+                    <h3 style="font: 900 22px var(--f); margin-top: 10px; text-transform: uppercase;">+R$ 1.000/Dia & Euro Wise</h3>
+                    <p style="font-size: 14.5px; color: #ecfdf5; margin-top: 8px; max-width: 320px; line-height: 1.5;">
+                      Comissões diárias automáticas no Pix, contratos internacionais na Europa e liberdade de operar no celular.
+                    </p>
+                    <div class="b-chip b-c2">FATURAMENTO: <b>+R$ <span id="bcount">260</span> MIL</b></div>
+                  </div>
+                </div>
+
+                <div class="b-line"></div>
+              </div>
+              <div class="babar" aria-hidden="true"><span>Antes</span><i><b></b></i><span>Depois</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bacopy">
+          <div class="hero-badge-box">QUEM ESTÁ NOS BASTIDORES</div>
+          <h2>De <em>12 horas no sufoco</em> a mais de <em>R$ 260 mil</em> com arbitragem no celular.</h2>
+          <p>Nós não somos gurus de palco que alugam carros de luxo para te vender cursos de R$ 2.000. Nós somos operadores de trincheira.</p>
+          <p>Há menos de 1 ano, nossa realidade era a mesma de milhões de brasileiros: trabalhar 12 horas por dia, aguentar patrão grosseiro e ver o salário sumir antes do dia 20.</p>
+          <p>Tudo mudou quando descobrimos a <b>brecha algorítmica de carrosséis no TikTok</b> e a rota internacional do Anerak Euro.</p>
+          <p>Criamos uma linha de montagem mecânica que roda em 45 minutos diários pelo celular. Hoje, reunimos operadores comuns faturando de R$ 55 a R$ 1.000 por dia sem aparecer.</p>
+          <p class="k"><b>Nós já percorremos o caminho mais difícil. Agora, o protocolo validado está pronto para você aplicar.</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="haz" style="margin-top: 70px;" aria-hidden="true"></div>
+
+  <!-- 5. TOUR 3D PELA ÁREA DE MEMBROS (.tour / .ttrack) -->
+  <section class="tour" id="tour">
+    <div class="col" style="text-align: center;">
+      <div class="hero-badge-box">POR DENTRO DA PLATAFORMA</div>
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Veja a Área de Membros <em style="font-style: normal; color: var(--g);">por Dentro</em>
+      </h2>
+      <p style="color: var(--muted); font-size: 15.5px; margin-top: 8px;">Role a página e conheça cada ferramenta da nossa esteira operacional.</p>
+    </div>
+
+    <div class="ttrack" id="ttrack">
+      <div class="tstage">
+        <div class="tview">
+          <div class="tworld" id="tworld">
+            <div class="tslide" data-t="Esteira de Carrosséis de 7 Slides" data-s="Templates editáveis no Canva nos nichos mais lucrativos do TikTok.">
+              <div class="tbar"><i></i><i></i><i></i><span>membros.operacaoalmanak.com/carrosseis</span></div>
+              <div class="tslide-content">
+                <div class="tslide-badge">FERRAMENTA EXCLUSIVA</div>
+                <h3>Templates Prontos de Carrosséis Virais</h3>
+                <p>Estruturas validadas com retenção comprovada. Abra no Canva pelo celular, substitua o texto em 15 minutos e coloque para rodar sem gravar vídeos.</p>
+              </div>
+            </div>
+
+            <div class="tslide" data-t="Quiz Funnel de Alta Conversão" data-s="Funis interativos com esteira de Order Bumps para multiplicar seu ticket.">
+              <div class="tbar"><i></i><i></i><i></i><span>membros.operacaoalmanak.com/quiz-funnel</span></div>
+              <div class="tslide-content">
+                <div class="tslide-badge">TECNOLOGIA PROPRIETÁRIA</div>
+                <h3>Esteiras de Venda Automática no Pix</h3>
+                <p>O mesmo modelo de quiz que você respondeu. Instale no seu domínio em 3 cliques para transformar cliques orgânicos em vendas de R$ 55 a R$ 97.</p>
+              </div>
+            </div>
+
+            <div class="tslide" data-t="Anerak Euro (Wise Internacional)" data-s="Prospecção e fechamento de clientes em Portugal recebendo 210 € por contrato.">
+              <div class="tbar"><i></i><i></i><i></i><span>membros.operacaoalmanak.com/anerak-euro</span></div>
+              <div class="tslide-content">
+                <div class="tslide-badge">ROTA INTERNACIONAL</div>
+                <h3>Scripts de Fechamento em Moeda Forte</h3>
+                <p>Abra uma conta gratuita na Wise e receba transferências internacionais de 210 € de comércios em Lisboa e Porto, convertendo na hora para Pix.</p>
+              </div>
+            </div>
+
+            <div class="tslide" data-t="Comunidade VIP no WhatsApp" data-s="Networking direto com quem está no campo de batalha faturando todos os dias.">
+              <div class="tbar"><i></i><i></i><i></i><span>membros.operacaoalmanak.com/comunidade</span></div>
+              <div class="tslide-content">
+                <div class="tslide-badge">NETWORKING REAL</div>
+                <h3>Suporte e Troca de Experiências</h3>
+                <p>Tire dúvidas, compartilhe novas brechas de algoritmo e acompanhe as estratégias que estão gerando mais comissões a cada semana.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tcap">
+          <h3 id="tcap1">Esteira de Carrosséis de 7 Slides</h3>
+          <p id="tcap2">Templates editáveis no Canva nos nichos mais lucrativos do TikTok.</p>
+          <div class="tnav">
+            <button class="tarr tprev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+            <div class="tdots" id="tdots"></div>
+            <button class="tarr tnext" type="button" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TUDO QUE VOCÊ RECEBE NA COMUNIDADE (.list / .it) -->
+  <section style="padding-top: 60px;">
+    <div class="col" style="text-align: center;">
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Tudo Que Você <em style="font-style: normal; color: var(--g);">Recebe</em>
+      </h2>
+      <div class="list">
+        <div class="it"><span class="ic">01</span><b>Treinamento Prático Completo</b><p>5 módulos passo a passo desenhados para execução 100% no celular.</p></div>
+        <div class="it"><span class="ic">02</span><b>Pack com 50 Carrosséis Validados</b><p>Templates editáveis no Canva com roteiros que acumulam milhões de views.</p></div>
+        <div class="it"><span class="ic">03</span><b>Scripts Anerak Euro (Wise)</b><p>Roteiros prontos para prospectar e fechar contratos de 210 € em Portugal.</p></div>
+        <div class="it"><span class="ic">04</span><b>Tecnologia de Quiz Funnel</b><p>Código e esteiras prontas para transformar visitantes em pagadores imediatos.</p></div>
+        <div class="it"><span class="ic">05</span><b>Comunidade VIP no WhatsApp</b><p>Networking direto com operadores ativos trocando novas brechas de tráfego.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CONHEÇA A LINHA DE MONTAGEM ALMANAK (ESTEIRA VERTICAL .forja / .tl) -->
+  <section style="padding-top: 70px;">
+    <div class="wide">
+      <div style="text-align: center;">
+        <div class="hero-badge-box">INCLUSO NA COMUNIDADE</div>
+        <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+          Conheça a <em style="font-style: normal; color: var(--g);">Linha de Montagem Almanak</em>
+        </h2>
+        <p style="color: var(--muted); font-size: 15.5px; margin-top: 8px; max-width: 600px; margin-inline: auto;">
+          Uma rotina mecânica de 45 minutos diários no celular que acende etapa por etapa para você colocar suas vendas no ar.
+        </p>
+      </div>
+
+      <div class="forja">
+        <div class="big">
+          <div style="width: 80px; height: 80px; border-radius: 20px; background: #ecfdf5; color: var(--g); display: grid; place-items: center; margin: 0 auto 16px; font-weight: 900; font-size: 32px; font-family: var(--fm);">⚡</div>
+          <b style="font: 900 20px var(--f); text-transform: uppercase; color: var(--fg); display: block;">Mecânica de Bastidores</b>
+          <p style="font-size: 14.5px; color: var(--muted); margin-top: 8px; line-height: 1.5;">
+            Sem teorias complexas. Cada etapa foi desenhada para quem tem pouco tempo e precisa de comissões rápidas no bolso.
+          </p>
+        </div>
+
+        <div class="tl" id="tl">
+          <div class="tl-fill" id="tlf"></div>
+          <div class="st on"><small>01</small><b>Mineração de Brechas Orgânicas</b><p>Identificação de tópicos em alta no TikTok que o algoritmo entrega de graça.</p></div>
+          <div class="st on"><small>02</small><b>Montagem de Carrossel no Canva</b><p>15 minutos para adaptar um dos nossos 50 modelos prontos sem mostrar o rosto.</p></div>
+          <div class="st on"><small>03</small><b>Ativação do Quiz Funnel</b><p>Direcionamento do tráfego para a página de qualificação com comissão no Pix.</p></div>
+          <div class="st on"><small>04</small><b>Prospecção Anerak Euro via WhatsApp</b><p>Envio de scripts validados para pequenos negócios em Lisboa recebendo 210 €.</p></div>
+          <div class="st"><small>05</small><b>Escala e Rotina Mecânica Diária</b><p>Acompanhamento dos saldos no Pix e na Wise e repetição do ciclo em 45 min.</p></div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <a class="btn-sales" href="#oferta">
+          <span>Quero Ativar a Linha de Montagem</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. MÓDULOS DO TREINAMENTO (.mod) -->
+  <section style="padding-top: 70px;">
+    <div class="col" style="text-align: center;">
+      <div class="hero-badge-box">5 MÓDULOS DE EXECUÇÃO PRÁTICA</div>
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Módulos do <em style="font-style: normal; color: var(--g);">Treinamento</em>
+      </h2>
+    </div>
+
+    <div class="strip auto">
+      <button class="ar l" type="button" aria-label="Anterior" data-dir="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+      <div class="track">
+        <div class="mod">
+          <div class="im">
+            <span style="font-weight: 900; font-size: 28px; color: var(--g); font-family: var(--fm);">01</span>
+            <b style="font: 800 15px var(--f); margin-top: 8px; color: var(--fg);">Configuração & Anonimato</b>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Blindagem de conta e ferramentas no celular.</p>
+          </div>
+          <small>Etapa 01</small><span>Configuração & Anonimato</span>
+        </div>
+
+        <div class="mod">
+          <div class="im">
+            <span style="font-weight: 900; font-size: 28px; color: var(--g); font-family: var(--fm);">02</span>
+            <b style="font: 800 15px var(--f); margin-top: 8px; color: var(--fg);">Fábrica de Carrosséis</b>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Criação de 7 slides de alta retenção no Canva.</p>
+          </div>
+          <small>Etapa 02</small><span>Fábrica de Carrosséis</span>
+        </div>
+
+        <div class="mod">
+          <div class="im">
+            <span style="font-weight: 900; font-size: 28px; color: var(--g); font-family: var(--fm);">03</span>
+            <b style="font: 800 15px var(--f); margin-top: 8px; color: var(--fg);">Arbitragem R$ 55 a 1k</b>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Esteiras de produtos que vendem no Pix.</p>
+          </div>
+          <small>Etapa 03</small><span>Arbitragem R$ 55 a 1k</span>
+        </div>
+
+        <div class="mod">
+          <div class="im">
+            <span style="font-weight: 900; font-size: 28px; color: var(--g); font-family: var(--fm);">04</span>
+            <b style="font: 800 15px var(--f); margin-top: 8px; color: var(--fg);">Rota Anerak Euro (Wise)</b>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Contratos internacionais de 210 € em Portugal.</p>
+          </div>
+          <small>Etapa 04</small><span>Rota Anerak Euro</span>
+        </div>
+
+        <div class="mod">
+          <div class="im">
+            <span style="font-weight: 900; font-size: 28px; color: var(--g); font-family: var(--fm);">05</span>
+            <b style="font: 800 15px var(--f); margin-top: 8px; color: var(--fg);">Quiz Funnel & Order Bump</b>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Automação e escala das suas ofertas digitais.</p>
+          </div>
+          <small>Etapa 05</small><span>Quiz Funnel & Escala</span>
+        </div>
+      </div>
+      <button class="ar r" type="button" aria-label="Próximo" data-dir="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <!-- 9. BÔNUS EXCLUSIVOS COM CARIMBOS (.bgrid / .bn / .stamp) -->
+  <section style="padding-top: 70px;">
+    <div class="wide">
+      <div style="text-align: center;">
+        <div class="hero-badge-box">SÓ HOJE NA SUA ATIVAÇÃO</div>
+        <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+          Bônus <em style="font-style: normal; color: var(--g);">Exclusivos</em>
+        </h2>
+        <p style="color: var(--muted); font-size: 15.5px; margin-top: 8px;">Tudo isso liberado <b style="color: var(--fg);">gratuitamente</b> para quem entrar agora.</p>
+      </div>
+
+      <div class="bgrid">
+        <div class="bn">
+          <div class="th"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <small>Bônus 01</small><b>Pack dos 50 Carrosséis Virais</b>
+          <p>Templates editáveis no Canva dos carrosséis mais lucrativos da nossa comunidade.</p>
+          <div class="val in"><s>R$ 197</s><span class="stamp">Hoje Grátis</span></div>
+        </div>
+
+        <div class="bn">
+          <div class="th"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <small>Bônus 02</small><b>Script Anerak Euro de 210 €</b>
+          <p>Roteiro exato de mensagens para fechar clientes em Portugal e receber pela Wise.</p>
+          <div class="val in"><s>R$ 297</s><span class="stamp">Hoje Grátis</span></div>
+        </div>
+
+        <div class="bn">
+          <div class="th"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <small>Bônus 03</small><b>Funil Interativo Quiz Funnel</b>
+          <p>Estrutura pronta para plugar no seu domínio e dobrar a taxa de conversão.</p>
+          <div class="val in"><s>R$ 197</s><span class="stamp">Hoje Grátis</span></div>
+        </div>
+
+        <div class="bn">
+          <div class="th"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <small>Bônus 04</small><b>Comunidade VIP no WhatsApp</b>
+          <p>Grupo fechado de operadores para tirar dúvidas e trocar novas brechas de mercado.</p>
+          <div class="val in"><s>R$ 497</s><span class="stamp">Hoje Grátis</span></div>
+        </div>
+      </div>
+
+      <div class="free">
+        <b>Mais de R$ <em id="btot">1.188</em> em bônus <em>de graça</em></b>
+        <p>Você não paga nada a mais por nenhum deles ao se inscrever nesta página.</p>
+        <div style="margin-top: 16px;">
+          <a class="btn-sales" href="#oferta">
+            <span>Quero Todos os Bônus Grátis</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. PREÇO OFICIAL COM BORDA CÔNICA GIRATÓRIA (.price / .pin) -->
+  <section id="oferta" style="padding-top: 70px;">
+    <div class="col">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="hero-badge-box">OFERTA ESPECIAL DE ATIVAÇÃO</div>
+        <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+          Leve <em style="font-style: normal; color: var(--g);">Tudo Isso</em> Hoje
+        </h2>
+      </div>
+
+      <div class="price">
+        <div class="pin">
+          <div class="phead">
+            <span class="chip"><i></i>Condição Exclusiva · Só Hoje</span>
+            <h3>Operação Almanak · Acesso Completo</h3>
+            <div class="big-tm" aria-label="Tempo restante">
+              <div><b id="bh">05</b><small>horas</small></div>
+              <div><b id="bm">15</b><small>min</small></div>
+              <div><b id="bs">03</b><small>seg</small></div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="row"><span class="ri">01</span><div><small>Treinamento</small><b>Operação Almanak (5 Módulos)</b></div><div class="rv2"><s>R$ 497</s></div></div>
+            <div class="row"><span class="ri">02</span><div><small>Bônus 01</small><b>Pack 50 Carrosséis Virais Canva</b></div><div class="rv2"><s>R$ 197</s><span class="stamp">Grátis</span></div></div>
+            <div class="row"><span class="ri">03</span><div><small>Bônus 02</small><b>Script Anerak Euro 210 € (Wise)</b></div><div class="rv2"><s>R$ 297</s><span class="stamp">Grátis</span></div></div>
+            <div class="row"><span class="ri">04</span><div><small>Bônus 03</small><b>Tecnologia de Quiz Funnel Pronta</b></div><div class="rv2"><s>R$ 197</s><span class="stamp">Grátis</span></div></div>
+            <div class="row"><span class="ri">05</span><div><small>Bônus 04</small><b>Comunidade VIP no WhatsApp</b></div><div class="rv2"><s>R$ 497</s><span class="stamp">Grátis</span></div></div>
+          </div>
+
+          <div class="total"><span>Valor Total</span><s id="vtotal">R$ 1.685</s></div>
+
+          <div class="today">
+            <div class="lb2">Somente Hoje</div>
+            <div class="pv" id="pv"><em class="x12">11x de</em><sup>R$</sup><span id="pvn">5,98</span></div>
+            <div class="par">ou <b id="par">R$ 55,00 à vista</b></div>
+            <span class="save" id="save">Você economiza R$ 1.630,00</span>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <a class="btn-sales" href="https://pay.kiwify.com.br" target="_blank" rel="noopener">
+              <span>Garantir Minha Vaga por R$&nbsp;55</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <p style="text-align: center; font-size: 12px; color: var(--dim); margin-top: 14px; font-weight: 600;">
+            Pagamento Seguro · Acesso Imediato · Garantia de 7 Dias
+          </p>
+        </div>
+      </div>
+
+      <!-- GARANTIA BLINDADA (.guar) -->
+      <div class="guar">
+        <div class="guar-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3>Garantia Incondicional de 7 Dias</h3>
+          <p>
+            Entre na comunidade, assista a todas as aulas práticas, baixe os templates de carrosséis e aplique o método. Se por qualquer motivo você achar que a operação não é para você, basta nos enviar um e-mail em até 7 dias e devolveremos 100% do seu dinheiro, sem perguntas e sem letras miúdas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. DEPOIMENTOS DE ALUNOS EM VÍDEO (CARROSSEL) -->
+  <section style="padding-top: 70px;">
+    <div class="col" style="text-align: center;">
+      <div class="hero-badge-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>OPERAÇÃO EM TELA · DEPOIMENTOS REAIS</span>
+      </div>
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Veja os Resultados dos Alunos <em style="font-style: normal; color: var(--g);">na Prática</em>
+      </h2>
+      <p style="color: var(--muted); font-size: 15.5px; margin-top: 8px;">Gente comum mostrando a tela do celular, o extrato do Pix e as comissões diárias.</p>
+    </div>
+
+    <div class="strip auto strip-vids">
+      <button class="ar l" type="button" aria-label="Anterior" data-dir="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+      <div class="track">
+        <!-- VÍDEO 1: MARCOS -->
+        <div class="vid-card">
+          <div class="vid-thumb">
+            <iframe src="https://www.youtube.com/embed/EBY7UETFeKI?rel=0&modestbranding=1" title="Depoimento Aluno Marcos" allowfullscreen></iframe>
+            <div class="vid-badge-proof">PIX: +R$ 2.450,00</div>
+          </div>
+          <div class="vid-info">
+            <div class="vid-author">
+              <b>Marcos S. · 28 anos</b>
+              <span>Ex-Operador de Caixa</span>
+            </div>
+            <p>"Fiz R$ 2.450 em 18 dias só postando carrossel dark no almoço. Primeira vez que sobra dinheiro de verdade."</p>
+          </div>
+        </div>
+
+        <!-- VÍDEO 2: ALINE -->
+        <div class="vid-card">
+          <div class="vid-thumb">
+            <iframe src="https://www.youtube.com/embed/S4GtTyNwIyQ?rel=0&modestbranding=1" title="Depoimento Aluna Aline" allowfullscreen></iframe>
+            <div class="vid-badge-proof">PIX: +R$ 880,00</div>
+          </div>
+          <div class="vid-info">
+            <div class="vid-author">
+              <b>Aline P. · 34 anos</b>
+              <span>Mãe de 2 filhos</span>
+            </div>
+            <p>"Morria de vergonha de aparecer. Segui o template de 7 slides e fechei 8 vendas na primeira semana."</p>
+          </div>
+        </div>
+
+        <!-- VÍDEO 3: RODRIGO (WISE) -->
+        <div class="vid-card">
+          <div class="vid-thumb">
+            <iframe src="https://www.youtube.com/embed/EBY7UETFeKI?rel=0&modestbranding=1" title="Depoimento Aluno Rodrigo" allowfullscreen></iframe>
+            <div class="vid-badge-proof" style="background: #fffbeb; color: #b45309; border-color: #fde68a;">WISE: +210,00 €</div>
+          </div>
+          <div class="vid-info">
+            <div class="vid-author">
+              <b>Rodrigo F. · 31 anos</b>
+              <span>Anerak Euro (Lisboa)</span>
+            </div>
+            <p>"Apliquei o roteiro de prospecção em Portugal e o primeiro cliente me mandou 210 Euros direto na Wise!"</p>
+          </div>
+        </div>
+
+        <!-- VÍDEO 4: DIEGO -->
+        <div class="vid-card">
+          <div class="vid-thumb">
+            <iframe src="https://www.youtube.com/embed/S4GtTyNwIyQ?rel=0&modestbranding=1" title="Depoimento Aluno Diego" allowfullscreen></iframe>
+            <div class="vid-badge-proof">PIX: +R$ 3.850,00</div>
+          </div>
+          <div class="vid-info">
+            <div class="vid-author">
+              <b>Diego T. · 26 anos</b>
+              <span>Ex-Motorista de App</span>
+            </div>
+            <p>"Larguei o volante de 12 horas. Hoje meu foco é 100% nos carrosséis do TikTok e no Quiz Funnel."</p>
+          </div>
+        </div>
+      </div>
+      <button class="ar r" type="button" aria-label="Próximo" data-dir="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <!-- 12. FAQ ACCORDION (.faq) -->
+  <section style="padding-top: 70px;">
+    <div class="col" style="text-align: center;">
+      <div class="hero-badge-box">DÚVIDAS FREQUENTES</div>
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Para Quem Ainda Tem <em style="font-style: normal; color: var(--g);">Dúvida</em>
+      </h2>
+
+      <div class="faq">
+        <details>
+          <summary>Preciso de computador ou consigo fazer tudo pelo celular?</summary>
+          <p>Não precisa de computador. 100% da criação de carrosséis no Canva, postagem no TikTok e atendimento de clientes foi desenhada para smartphone.</p>
+        </details>
+        <details>
+          <summary>Eu preciso aparecer ou gravar vídeos falando?</summary>
+          <p>Não. Mais de 80% dos carrosséis rodam no formato 100% anônimo (dark). Ninguém do seu convívio pessoal saberá o que você faz.</p>
+        </details>
+        <details>
+          <summary>Preciso gastar dinheiro com anúncios no Meta Ads?</summary>
+          <p>Zero reais. O método explora a entrega orgânica gratuita que o algoritmo do TikTok entrega para o formato de fotos e carrosséis.</p>
+        </details>
+        <details>
+          <summary>Quanto tempo por dia preciso dedicar?</summary>
+          <p>De 30 a 60 minutos por dia são suficientes para postar os carrosséis e acompanhar as notificações de Pix e Wise caindo.</p>
+        </details>
+        <details>
+          <summary>Como recebo o acesso após o pagamento?</summary>
+          <p>Imediatamente após a aprovação do Pix ou cartão, os dados de login chegam no e-mail cadastrado na compra.</p>
+        </details>
+        <details>
+          <summary>E se eu não me adaptar ou não gostar?</summary>
+          <p>Você tem 7 dias de garantia incondicional. Basta solicitar o reembolso e seu dinheiro é devolvido integralmente.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. CHAMADA FINAL (.last) -->
+  <section class="last">
+    <div class="col">
+      <h2 style="font: 900 clamp(24px, 5vw, 36px)/1.15 var(--f); text-transform: uppercase;">
+        Chega de <em style="font-style: normal; color: var(--g);">Enrolar</em>. Comece Hoje.
+      </h2>
+      <div class="urg"><i></i><span>Só hoje! A oferta termina em <b data-tmr="">05h 15m 03s</b></span></div>
+      <div style="margin-top: 24px;">
+        <a class="btn-sales" href="#oferta">
+          <span>Quero Ativar Minha Operação por R$&nbsp;55</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="trust"><span>Acesso Imediato</span><span>Garantia de 7 Dias</span><span>Pagamento Seguro</span></div>
+    </div>
+  </section>
+
+  <!-- 14. FLOATING STICKY FOOTER COM DEGRADÊ TRANSLÚCIDO E TIMER -->
+  <div class="sticky" id="sticky">
+    <div class="sticky-inner">
+      <div class="sticky-timer-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>LIBERAÇÃO IMEDIATA EXPIRA EM: <b class="sticky-timer-num" data-tmr="">05h 15m 03s</b></span>
+      </div>
+      <a class="btn-floating-cta pulse" href="#oferta">
+        <span class="btn-unbroken-text">QUERO ATIVAR MINHA OPERAÇÃO POR R$ 55</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <span class="sticky-micro">Acesso imediato · Garantia blindada de 7 dias</span>
+    </div>
+  </div>
+
+  <!-- RODAPÉ OFICIAL -->
+  <footer>
+    <div class="col">
+      <p><b>Comunidade Oficial Almanak</b> · Todos os direitos reservados.</p>
+      <p style="margin-top: 6px;">Este site não possui vínculo institucional com o TikTok, ByteDance ou Meta Platforms Inc.</p>
+    </div>
+  </footer>
+</section>
+
+<!-- =======================================================================
+     JAVASCRIPT DE CONTROLE, ÁUDIO, INTERATIVIDADE & TRANSIÇÕES
+     ======================================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  function $(sel, el) { return (el || document).querySelector(sel); }
+  function $$(sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); }
+
+  // -------------------------------------------------------------------------
+  // A. MOTOR DE ÁUDIO WEB AUDIO API
+  // -------------------------------------------------------------------------
+  var audioCtx = null;
+  var audioMuted = true;
+
+  function getAudio() {
+    if (!audioCtx) {
+      try {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) audioCtx = new AudioCtx();
+      } catch (e) {}
+    }
+    if (audioCtx && audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playClick() {
+    if (audioMuted) return;
+    var ctx = getAudio(); if (!ctx) return;
+    try {
+      var osc = ctx.createOscillator(), g = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(600, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + 0.04);
+      g.gain.setValueAtTime(0.08, ctx.currentTime);
+      g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.04);
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 0.04);
+    } catch (e) {}
+  }
+
+  function playChime() {
+    if (audioMuted) return;
+    var ctx = getAudio(); if (!ctx) return;
+    try {
+      [523.25, 659.25, 783.99, 1046.5].forEach(function (f, i) {
+        var osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08);
+        g.gain.setValueAtTime(0.09, ctx.currentTime + i * 0.08);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.35);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.08);
+        osc.stop(ctx.currentTime + i * 0.08 + 0.35);
+      });
+    } catch (e) {}
+  }
+
+  function playCashRegister() {
+    if (audioMuted) return;
+    var ctx = getAudio(); if (!ctx) return;
+    try {
+      [987.77, 1318.51].forEach(function (f, i) {
+        var osc = ctx.createOscillator(), g = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.06);
+        g.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.06);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.45);
+        osc.connect(g); g.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.06);
+        osc.stop(ctx.currentTime + i * 0.06 + 0.45);
+      });
+    } catch (e) {}
+  }
+
+  var musBtn = $("#mus-btn");
+  if (musBtn) {
+    musBtn.addEventListener("click", function () {
+      audioMuted = !audioMuted;
+      musBtn.classList.toggle("muted", audioMuted);
+      if (!audioMuted) { getAudio(); playChime(); }
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // B. DADOS DO QUIZ (8 ETAPAS · VERBATIMS REAIS · SEM PÍLULAS DE FRASES)
+  // -------------------------------------------------------------------------
+  var QUIZ = [
+    {
+      qNum: 1,
+      type: "question",
+      title: "Qual é a sua principal fonte de renda hoje e como você se sente no dia 20 do mês?",
+      subtitle: "Selecione a opção que mais se aproxima da sua realidade de rotina financeira.",
+      options: [
+        { l: "A", t: "<b>Sou CLT / comércio:</b> Trabalho de 8h a 10h por dia, pego 2 horas de condução lotada, dia 20 o salário já acabou no cheque especial e vivo no sufoco." },
+        { l: "B", t: "<b>Entregador / motorista de aplicativo:</b> Fico 12h a 14h na rua de moto ou carro, arriscando a vida na chuva, almoçando marmita fria e sem tempo com meus filhos." },
+        { l: "C", t: "<b>Desempregado(a) no aperto:</b> Nome no Serasa, faturas atrasadas na gaveta da cozinha e precisando urgentemente de dinheiro limpo e rápido no bolso." },
+        { l: "D", t: "<b>Cuidando da família em casa:</b> Fico em casa cuidando dos filhos ou de parentes, não posso trabalhar fora e preciso de renda honesta feita 100% pelo celular." },
+        { l: "E", t: "<b>Autônomo / prestador de serviços:</b> Cobro barato em Real, clientes chatos pedem 10 alterações sem pagar a mais e a margem de lucro foi esmagada." },
+        { l: "F", t: "<b>Transição de carreira / renda extra:</b> Já ganho razoavelmente, mas odeio a rotina corporativa e quero construir uma operação em paralelo que me pague em Real e Euro." }
+      ]
+    },
+    {
+      qNum: 2,
+      type: "checklist",
+      title: "O que você já tentou antes para ganhar dinheiro na internet?",
+      subtitle: "Marque todas as frustrações que você já passou no digital.",
+      options: [
+        { l: "A", t: "<b>Dropshipping ou Lojas Virtuais:</b> Fornecedor atrasando entrega, cliente cobrando no WhatsApp e taxas alfandegárias comendo todo o lucro." },
+        { l: "B", t: "<b>Afiliado na Hotmart / Kiwify:</b> Tentando vender cursos caros de R$ 500 sem audiência, sem suporte do produtor e sem fazer 1 venda." },
+        { l: "C", t: "<b>Cursos e Mentorias de Gurus:</b> Promessas de R$ 10k fáceis em treinamentos que custaram R$ 1.500 e só entregaram teoria vazia." },
+        { l: "D", t: "<b>Tráfego Pago no Meta Ads / Facebook:</b> Queimei R$ 500 a R$ 1.000 em anúncios que só trouxeram curiosos e a conta foi bloqueada." },
+        { l: "E", t: "<b>Robôs do Pix, Apostas ou Fórmulas Mágicas:</b> Promessas ridículas de dinheiro fácil empurradas por falsos gurus que só arrancaram dinheiro do meu bolso." },
+        { l: "F", t: "<b>Nunca tentei nada sério:</b> Morro de medo de cair em golpes e só assisto a vídeos no TikTok querendo uma chance honesta." }
+      ]
+    },
+    {
+      qNum: 3,
+      type: "question",
+      title: "Você já possui algum produto, serviço ou já vende algo no digital hoje?",
+      subtitle: "Avaliando se sua operação começará com esteira validada pronta ou destravando seu produto existente.",
+      options: [
+        { l: "A", t: "<b>Não, estou começando do absoluto zero:</b> Não tenho produto, não tenho audiência e nunca fiz 1 venda na internet." },
+        { l: "B", t: "<b>Sim, já tenho um infoproduto / serviço, mas estou travado:</b> Vendo pingado, não consigo passar dos R$ 1.000/dia e os anúncios estão caros demais." },
+        { l: "C", t: "<b>Presto serviços como autônomo (design, páginas, edição):</b> Cobro barato em Real e tenho clientes chatos que pedem 10 alterações sem pagar a mais." }
+      ]
+    },
+    {
+      qNum: 4,
+      type: "question",
+      title: "Qual é a sua realidade de aparelhos hoje para trabalhar?",
+      subtitle: "A Operação Almanak foi desenhada para ser 100% executada no smartphone comum.",
+      options: [
+        { l: "A", t: "<b>Tenho apenas um celular comum:</b> Às vezes até com a tela um pouco trincada e memória limitada, mas com acesso à internet." },
+        { l: "B", t: "<b>Tenho celular e um notebook antigo em casa:</b> Que dá para usar tranquilamente no tempo livre à noite se precisar." },
+        { l: "C", t: "<b>Tenho um computador bom:</b> Mas prefiro a praticidade de fazer quase tudo na palma da minha mão." }
+      ]
+    },
+    {
+      qNum: 5,
+      type: "question",
+      title: "Como você se sente sobre gravar vídeos ou expor o seu rosto na internet?",
+      subtitle: "Auditoria de anonimato. Mais de 80% das nossas comissões vêm de operações 100% invisíveis (dark).",
+      options: [
+        { l: "A", t: "<b>Não quero me expor de jeito nenhum:</b> Morro de vergonha e não quero amigos, parentes ou colegas de trabalho sabendo o que faço." },
+        { l: "B", t: "<b>Prefiro operar 100% nos bastidores:</b> Fazendo tudo no anonimato e só focar em ver o Pix e o Wise caindo na conta." },
+        { l: "C", t: "<b>Não tenho problema em aparecer:</b> Faço o que for preciso para atingir minhas metas financeiras." }
+      ]
+    },
+    {
+      qNum: 6,
+      type: "question",
+      title: "Quanto tempo por dia você consegue separar para colocar o método em prática?",
+      subtitle: "A rotina exige consistência mecânica de 45 minutos diários, não horas infinitas.",
+      options: [
+        { l: "A", t: "<b>De 30 minutos a 1 hora por dia:</b> No intervalo de almoço da firma, no ônibus voltando para casa ou à noite antes de dormir." },
+        { l: "B", t: "<b>De 1 a 2 horas por dia:</b> Consigo me dedicar com calma e consistência todos os dias." },
+        { l: "C", t: "<b>Mais de 3 horas por dia:</b> Estou com tempo livre e quero acelerar o máximo possível para viver disso." }
+      ]
+    },
+    {
+      qNum: 7,
+      type: "question",
+      title: "Qual é a sua meta financeira imediata para os próximos 30 dias?",
+      subtitle: "Registrando sua meta no dossiê técnico para calibrar sua esteira de produtos.",
+      options: [
+        { l: "A", t: "<b>R$ 1.000 a R$ 2.000 a mais por mês:</b> Para pagar o cartão de crédito, quitar o cheque especial e tirar o peso das costas." },
+        { l: "B", t: "<b>R$ 3.000 a R$ 5.000 por mês:</b> Para igualar ou superar o meu salário atual e começar a planejar minha saída da CLT." },
+        { l: "C", t: "<b>Mais de R$ 10.000 por mês:</b> Atingir a marca de R$ 1.000 por dia e viver exclusivamente dos meus ganhos digitais." }
+      ]
+    },
+    {
+      qNum: 8,
+      type: "question",
+      title: "Você se compromete a seguir as instruções práticas da comunidade e colocar seus primeiros carrosséis ou funis no ar nas próximas 48 horas?",
+      subtitle: "Nossa comunidade não aceita curiosos que procuram fórmulas mágicas sem aplicar a linha de montagem.",
+      options: [
+        { l: "A", t: "<b>SIM! Estou 100% decidido(a):</b> Chega de desculpas, eu quero mudar a realidade financeira da minha família agora." },
+        { l: "B", t: "<b>Quero assistir às primeiras aulas:</b> E começar a aplicar no meu próprio ritmo com o suporte da comunidade." }
+      ]
+    }
+  ];
+
+  var stepIdx = 0;
+  var selectedMulti = new Set();
+
+  var sHero = $("#screen-hero"),
+      sQuiz = $("#screen-quiz"),
+      sCalc = $("#screen-calc"),
+      sDiag = $("#screen-diag"),
+      sPitch = $("#screen-pitch");
+
+  var topProg = $("#top-progress"),
+      salesBanner = $("#sales-top-banner");
+
+  function showScreen(el) {
+    [sHero, sQuiz, sCalc, sDiag, sPitch].forEach(function (s) { if (s) s.classList.remove("active"); });
+    el.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "instant" });
+
+    if (el === sQuiz || el === sCalc || el === sDiag) {
+      topProg.classList.add("active");
+    } else {
+      topProg.classList.remove("active");
+    }
+
+    if (el === sPitch) {
+      salesBanner.classList.add("active");
+      initPitch();
+    } else {
+      salesBanner.classList.remove("active");
+    }
+  }
+
+  // Iniciar Quiz
+  var btnStart = $("#btn-start");
+  if (btnStart) {
+    btnStart.addEventListener("click", function () {
+      getAudio(); playClick();
+      stepIdx = 0; selectedMulti.clear();
+      renderQ();
+      showScreen(sQuiz);
+    });
+  }
+
+  function updateFrustCounterText() {
+    var count = selectedMulti.size;
+    var badgeTxt = $("#frust-counter-text");
+    var btnTxt = $("#btn-confirm-text");
+
+    if (!badgeTxt || !btnTxt) return;
+
+    if (count === 0) {
+      badgeTxt.textContent = "Nenhuma selecionada (marque as que já passou)";
+      btnTxt.textContent = "Avançar mesmo sem marcar ➔";
+    } else if (count === 1) {
+      badgeTxt.textContent = "1 frustração selecionada";
+      btnTxt.textContent = "Confirmar (1 frustração selecionada) ➔";
+    } else if (count === 2) {
+      badgeTxt.textContent = "2 frustrações acumuladas";
+      btnTxt.textContent = "Confirmar (2 frustrações acumuladas) ➔";
+    } else if (count === 3) {
+      badgeTxt.textContent = "3 frustrações na bagagem";
+      btnTxt.textContent = "Confirmar (3 frustrações na bagagem) ➔";
+    } else if (count === 4) {
+      badgeTxt.textContent = "4 frustrações no histórico";
+      btnTxt.textContent = "Confirmar (4 frustrações no histórico) ➔";
+    } else {
+      badgeTxt.textContent = count + " frustrações acumuladas";
+      btnTxt.textContent = "Confirmar (" + count + " frustrações acumuladas) ➔";
+    }
+  }
+
+  function renderQ() {
+    var cur = QUIZ[stepIdx];
+    var area = $("#quiz-content-area");
+    area.innerHTML = "";
+
+    var qNum = cur.qNum;
+    var pct = Math.round((qNum / QUIZ.length) * 100);
+    topProg.style.transform = "scaleX(" + (qNum / QUIZ.length) + ")";
+
+    var headerDiv = document.createElement("div");
+    headerDiv.innerHTML =
+      '<div class="q-meta-header">' +
+        '<div class="q-step-pill">' +
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
+          '<span>Aptidão Operacional · Etapa ' + qNum + ' de ' + QUIZ.length + '</span>' +
+        '</div>' +
+        '<span class="q-pct-pill">' + pct + '% Concluído</span>' +
+      '</div>' +
+      '<h2 class="q-title">' + cur.title + '</h2>' +
+      (cur.subtitle ? '<p class="q-subtitle">' + cur.subtitle + '</p>' : '');
+
+    area.appendChild(headerDiv);
+
+    if (cur.type === "question") {
+      var listDiv = document.createElement("div");
+      cur.options.forEach(function (opt) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "q-choice-btn";
+        btn.innerHTML =
+          '<div class="opt-badge">' + opt.l + '</div>' +
+          '<div class="opt-txt">' + opt.t + '</div>';
+
+        btn.addEventListener("click", function () {
+          getAudio(); playClick();
+          $$(".q-choice-btn", listDiv).forEach(function (b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          setTimeout(advanceQ, 250);
+        });
+
+        listDiv.appendChild(btn);
+      });
+      area.appendChild(listDiv);
+
+    } else if (cur.type === "checklist") {
+      var badgeDiv = document.createElement("div");
+      badgeDiv.className = "frust-counter-badge";
+      badgeDiv.innerHTML =
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
+        '<span id="frust-counter-text">0 frustrações selecionadas</span>';
+      area.appendChild(badgeDiv);
+
+      var chkListDiv = document.createElement("div");
+      cur.options.forEach(function (opt, idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "q-chk-btn" + (selectedMulti.has(idx) ? " selected" : "");
+        btn.innerHTML =
+          '<div class="q-chk-box">✓</div>' +
+          '<div class="opt-txt">' + opt.t + '</div>';
+
+        btn.addEventListener("click", function () {
+          getAudio(); playClick();
+          if (selectedMulti.has(idx)) {
+            selectedMulti.delete(idx);
+            btn.classList.remove("selected");
+          } else {
+            selectedMulti.add(idx);
+            btn.classList.add("selected");
+          }
+          updateFrustCounterText();
+        });
+
+        chkListDiv.appendChild(btn);
+      });
+      area.appendChild(chkListDiv);
+
+      var btnConfirm = document.createElement("button");
+      btnConfirm.type = "button";
+      btnConfirm.className = "btn-cta btn-pill";
+      btnConfirm.style.width = "100%";
+      btnConfirm.style.marginTop = "14px";
+      btnConfirm.innerHTML = '<span id="btn-confirm-text">Confirmar e Avançar ➔</span>';
+      btnConfirm.addEventListener("click", function () {
+        getAudio(); playClick();
+        advanceQ();
+      });
+      area.appendChild(btnConfirm);
+
+      updateFrustCounterText();
+    }
+  }
+
+  function advanceQ() {
+    stepIdx++;
+    if (stepIdx < QUIZ.length) {
+      renderQ();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      startCascade();
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // C. CARREGAMENTO EM CASCATA COM 4 CARDS SEQUENCIAIS
+  // -------------------------------------------------------------------------
+  function startCascade() {
+    showScreen(sCalc);
+    var steps = [
+      { id: 1, delay: 300, fill: 600, tag: "100% MOBILE" },
+      { id: 2, delay: 1100, fill: 1400, tag: "CUSTO ZERO" },
+      { id: 3, delay: 1900, fill: 2200, tag: "MODO DARK" },
+      { id: 4, delay: 2700, fill: 3000, tag: "VAGA LOCALIZADA" }
+    ];
+
+    steps.forEach(function (s) {
+      setTimeout(function () {
+        var card = $("#c" + s.id);
+        if (card) { card.classList.add("in"); playClick(); }
+      }, s.delay);
+
+      setTimeout(function () {
+        var card = $("#c" + s.id), bar = $("#b" + s.id), tag = $("#t" + s.id);
+        if (card && bar && tag) {
+          bar.style.width = "100%"; tag.textContent = s.tag;
+          card.classList.add("done"); playClick();
+        }
+      }, s.fill);
+    });
+
+    setTimeout(function () {
+      var badge = $("#c-final");
+      if (badge) badge.classList.add("in");
+      playChime();
+    }, 3500);
+
+    setTimeout(function () {
+      topProg.style.transform = "scaleX(1)";
+      showScreen(sDiag);
+    }, 4200);
+  }
+
+  var btnDiagNext = $("#btn-diag-next");
+  if (btnDiagNext) {
+    btnDiagNext.addEventListener("click", function () {
+      getAudio(); playClick();
+      showScreen(sPitch);
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // D. PÁGINA DE VENDAS MODELADA (TODAS AS ANIMAÇÕES E MECÂNICAS)
+  // -------------------------------------------------------------------------
+  var pitchInited = false;
+  function initPitch() {
+    if (pitchInited) return;
+    pitchInited = true;
+    startSalesPop();
+    initScrubber();
+    initTour3D();
+    initTimeline();
+    initTimers();
+    initParticles();
+    initSticky();
+    initTilt();
+  }
+
+  // Notificações Pop-down de Vendas com Cacto Glow
+  var sales = [
+    { name: "Venda aprovada no Pix!", body: "Sua comissão: <b class=\"green\">R$ 24,01</b>", time: "há 8m" },
+    { name: "Venda aprovada no Pix - Orderbump!", body: "Sua comissão: <b class=\"green\">R$ 12,01</b>", time: "há 7m" },
+    { name: "Venda aprovada no Pix!", body: "Sua comissão: <b class=\"green\">R$ 55,00</b>", time: "há 2m" },
+    { name: "Wise Recebido!", body: "Recebido <b>210,00 €</b> · Cliente Lisboa", time: "hoje" },
+    { name: "Venda aprovada no Pix!", body: "Sua comissão: <b class=\"green\">R$ 24,01</b>", time: "há 4m" },
+    { name: "Venda aprovada no Pix - Orderbump!", body: "Sua comissão: <b class=\"green\">R$ 12,01</b>", time: "há 3m" },
+    { name: "Venda aprovada no Pix!", body: "Sua comissão: <b class=\"green\">R$ 110,00</b>", time: "há 12m" }
+  ];
+  var sIdx = 0;
+
+  function startSalesPop() {
+    function firePop() {
+      var item = sales[sIdx % sales.length];
+      sIdx++;
+      var el = $("#vnd"), elName = $("#vnd-name"), elBody = $("#vnd-body"), elTime = $("#vnd-time");
+      if (el && elName && elBody) {
+        elName.textContent = item.name;
+        elBody.innerHTML = item.body;
+        if (elTime) elTime.textContent = item.time;
+        el.classList.add("on");
+        playCashRegister();
+        setTimeout(function () {
+          el.classList.remove("on");
+        }, 4200);
+      }
+    }
+    setTimeout(firePop, 2800);
+    setInterval(firePop, 9500);
+  }
+
+  // Comparador Antes / Depois Guiado pelo Scroll (.bapin / .baframe)
+  function initScrubber() {
+    var fr = $("#baframe"), pin = $("#bapin"), num = $("#bcount"), stick = $("#bastick");
+    if (!fr || !pin || !stick) return;
+
+    var cur = 0, contou = false;
+    function alvo() {
+      var q = pin.getBoundingClientRect(), top = 84;
+      var L = Math.max(1, pin.offsetHeight - stick.offsetHeight);
+      var s = Math.max(0, Math.min(L, top - q.top));
+      return Math.max(0, Math.min(1, (s - L * .15) / (L * .57)));
+    }
+
+    function conta() {
+      var t0 = performance.now(), D = 1100;
+      (function step(t) {
+        var k = Math.min(1, (t - t0) / D);
+        if (num) num.textContent = Math.round(260 * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(step);
+      })(t0);
+    }
+
+    function loop() {
+      var tg = alvo(), ant = cur;
+      cur += (tg - cur) * 0.14;
+      if (Math.abs(tg - cur) < 0.0008) cur = tg;
+      if (cur !== ant) pin.style.setProperty("--p", cur.toFixed(4));
+      if (cur > .6 && !contou) { contou = true; conta(); }
+      if (cur < .3 && contou) { contou = false; if (num) num.textContent = "260"; }
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  // Tour 3D da Área de Membros (.ttrack / .tworld)
+  function initTour3D() {
+    var track = $("#ttrack"); if (!track) return;
+    var world = $("#tworld"), slides = $$(".tslide", world), n = slides.length;
+    var cap1 = $("#tcap1"), cap2 = $("#tcap2"), dots = $("#tdots");
+    if (!world || !slides.length) return;
+
+    var current = 0;
+
+    // Criar dots interativos
+    dots.innerHTML = "";
+    slides.forEach(function (s, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Slide " + (i + 1));
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        setSlide(i);
+      });
+      dots.appendChild(b);
+    });
+    var dotEls = $$("button", dots);
+
+    function updateSlides(idx) {
+      current = Math.max(0, Math.min(n - 1, idx));
+      var mob = innerWidth < 768;
+      var sw = slides[0].offsetWidth;
+
+      slides.forEach(function (s, i) {
+        var diff = i - current;
+        var absDiff = Math.abs(diff);
+
+        if (diff === 0) {
+          s.style.transform = "translate3d(0, 0, 0) rotateY(0deg) scale(1)";
+          s.style.opacity = "1";
+          s.style.zIndex = "10";
+          s.style.filter = "none";
+          s.style.pointerEvents = "auto";
+          s.style.visibility = "visible";
+        } else if (diff < 0) {
+          var shift = mob ? -sw * 0.92 : -sw * 0.52;
+          var rot = mob ? 0 : 22;
+          s.style.transform = "translate3d(" + shift + "px, 0, -140px) rotateY(" + rot + "deg) scale(0.85)";
+          s.style.opacity = absDiff === 1 ? (mob ? "0.25" : "0.5") : "0";
+          s.style.zIndex = String(10 - absDiff);
+          s.style.filter = "blur(1px)";
+          s.style.pointerEvents = "auto";
+          s.style.visibility = absDiff <= 2 ? "visible" : "hidden";
+        } else {
+          var shift = mob ? sw * 0.92 : sw * 0.52;
+          var rot = mob ? 0 : -22;
+          s.style.transform = "translate3d(" + shift + "px, 0, -140px) rotateY(" + rot + "deg) scale(0.85)";
+          s.style.opacity = absDiff === 1 ? (mob ? "0.25" : "0.5") : "0";
+          s.style.zIndex = String(10 - absDiff);
+          s.style.filter = "blur(1px)";
+          s.style.pointerEvents = "auto";
+          s.style.visibility = absDiff <= 2 ? "visible" : "hidden";
+        }
+      });
+
+      if (cap1 && slides[current]) cap1.textContent = slides[current].dataset.t;
+      if (cap2 && slides[current]) cap2.textContent = slides[current].dataset.s;
+      dotEls.forEach(function (d, k) { d.classList.toggle("on", k === current); });
+    }
+
+    function setSlide(i) {
+      updateSlides(i);
+    }
+
+    // Clicar em qualquer slide navega diretamente para ele
+    slides.forEach(function (s, i) {
+      s.addEventListener("click", function (e) {
+        if (i !== current) {
+          e.preventDefault();
+          setSlide(i);
+        }
+      });
+    });
+
+    var pBtn = $(".tprev"), nBtn = $(".tnext");
+    if (pBtn) pBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      setSlide(current - 1 >= 0 ? current - 1 : n - 1);
+    });
+    if (nBtn) nBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      setSlide(current + 1 < n ? current + 1 : 0);
+    });
+
+    // Suporte a swipe touch fluido
+    var startX = 0, dist = 0;
+    world.addEventListener("touchstart", function (e) {
+      startX = e.touches[0].clientX;
+      dist = 0;
+    }, { passive: true });
+    world.addEventListener("touchmove", function (e) {
+      dist = e.touches[0].clientX - startX;
+    }, { passive: true });
+    world.addEventListener("touchend", function () {
+      if (dist > 45) setSlide(current - 1 >= 0 ? current - 1 : n - 1);
+      else if (dist < -45) setSlide(current + 1 < n ? current + 1 : 0);
+    });
+
+    updateSlides(0);
+  }
+
+  function initTimeline() {
+    var tl = $("#tl"), fill = $("#tlf"), steps = $$(".st", tl);
+    if (!tl || !fill) return;
+    function upd() {
+      var r = tl.getBoundingClientRect(), mid = innerHeight * .62;
+      var h = Math.max(0, Math.min(r.height - 16, mid - r.top));
+      fill.style.height = h + "px";
+      steps.forEach(function (s) { s.classList.toggle("on", s.getBoundingClientRect().top + 20 < mid); });
+    }
+    window.addEventListener("scroll", upd, { passive: true });
+    upd();
+  }
+
+  // Timers da Oferta & Cabeçalho Amarelo
+  function initTimers() {
+    var z = function (n) { return String(n).padStart(2, "0"); };
+    var sec = 18903; // ~05h 15m 03s
+    setInterval(function () {
+      if (sec > 0) sec--;
+      var h = Math.floor(sec / 3600);
+      var m = Math.floor((sec % 3600) / 60);
+      var s = sec % 60;
+      var txt = z(h) + "h " + z(m) + "m " + z(s) + "s";
+      $$("[data-tmr]").forEach(function (e) { e.textContent = txt; });
+      var bh = $("#bh"), bm = $("#bm"), bs = $("#bs");
+      if (bh) bh.textContent = z(h);
+      if (bm) bm.textContent = z(m);
+      if (bs) bs.textContent = z(s);
+    }, 1000);
+  }
+
+  // Sticky CTA no Rodapé
+  function initSticky() {
+    var st = $("#sticky"), oferta = $("#oferta");
+    if (!st || !oferta) return;
+    window.addEventListener("scroll", function () {
+      var sc = window.scrollY;
+      var passedHero = sc > 500;
+      var onOffer = oferta.getBoundingClientRect().top < innerHeight * .7 && oferta.getBoundingClientRect().bottom > innerHeight * .2;
+      st.classList.toggle("on", passedHero && !onOffer);
+    }, { passive: true });
+  }
+
+  // Tilt 3D no Mockup Hero
+  function initTilt() {
+    var hb = $("#himg"), himg = $(".himg-box", hb);
+    if (!hb || !himg) return;
+    hb.addEventListener("pointermove", function (e) {
+      var r = hb.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - .5;
+      var y = (e.clientY - r.top) / r.height - .5;
+      himg.style.transform = "rotateY(" + (x * 8) + "deg) rotateX(" + (-y * 6) + "deg)";
+    });
+    hb.addEventListener("pointerleave", function () {
+      himg.style.transform = "";
+    });
+  }
+
+  // Fundo de Partículas em Canvas (#fx)
+  function initParticles() {
+    var cv = $("#fx"); if (!cv) return;
+    var c = cv.getContext("2d"), W, H, P = [], dpr = window.devicePixelRatio || 1;
+    function size() {
+      W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr;
+      cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+      var n = Math.round(Math.min(45, innerWidth * innerHeight / 24000));
+      P = [];
+      for (var i = 0; i < n; i++) {
+        P.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35 * dpr, vy: (Math.random() - .5) * .35 * dpr, r: (Math.random() * 1.4 + .6) * dpr });
+      }
+    }
+    size();
+    window.addEventListener("resize", size);
+
+    var run = true;
+    function draw() {
+      if (!run) return;
+      requestAnimationFrame(draw);
+      c.clearRect(0, 0, W, H);
+      c.fillStyle = "rgba(5, 150, 105, 0.4)";
+      c.beginPath();
+      for (var i = 0; i < P.length; i++) {
+        var p = P[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        c.moveTo(p.x + p.r, p.y); c.arc(p.x, p.y, p.r, 0, 6.283);
+      }
+      c.fill();
+    }
+    draw();
+  }
+
+  // Botões de Scroll Horizontal nos Carrosséis
+  $$(".ar").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var track = b.closest(".strip").querySelector(".track");
+      if (track) track.scrollBy({ left: +b.dataset.dir * 420, behavior: "smooth" });
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
